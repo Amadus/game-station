@@ -1,0 +1,25 @@
+API 
+
+/post/createpost POST
+用户新建一个post
+
+/post/updatepost POST
+用户修改一个post，主要用于修改price和status
+
+/post/deletepost/:id GET
+用户删除一个post
+
+/post/getpostbyid/:id GET
+获取一个post的详情
+
+/post/getallposts GET
+获取所有的posts
+
+/post/getpostsbyseller/:user_name GET
+获取用户发布的所有posts
+
+/comment/createcomment POST
+用户增加一条评论
+
+/comment/getcommentsbypostid/:post_id GET
+根据postid获得所有comments，供详情页面展示
