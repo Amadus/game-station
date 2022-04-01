@@ -6,8 +6,9 @@ var logger = require("morgan");
 const cors = require("cors");
 require("dotenv").config();
 
-var indexRouter = require("./routes/index");
-var usersRouter = require("./routes/users");
+const postRouter = require("./routes/post");
+const userRouter = require("./routes/user");
+const commentRouter = require("./routes/comment");
 
 var app = express();
 app.use(cors());
@@ -29,8 +30,9 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
-app.use("/", indexRouter);
-app.use("/users", usersRouter);
+app.use("/post", postRouter);
+app.use("/user", userRouter);
+app.use("/comment", commentRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
