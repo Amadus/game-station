@@ -26,6 +26,16 @@ API
 
 /user/createuser POST
 创建一个用户
+http://localhost:3030/user/createuser
+{
+    "user_name": "Amadus",
+    "avatar_url": "http://localhost:3030/public/images/user1.png"
+}
 
-/user/updateuser/:user_name POST
-修改一个用户，主要用于更换头像
+/user/updateuser POST
+修改一个用户，用于更换头像。会根据当前user_name查找这个用户，然后更新其他字段，user_name本身不能更新。
+http://localhost:3030/user/updateuser
+{
+    "user_name": "Amadus",
+    "avatar_url": "http://localhost:3030/public/images/amadus.png"
+}

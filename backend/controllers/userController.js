@@ -9,8 +9,6 @@ exports.create_user_post = (req, res, next) => {
     return;
   }
 
-  console.log(req.body);
-
   const user = new User({
     user_name: req.body.user_name,
     avatar_url: req.body.avatar_url,
@@ -26,5 +24,29 @@ exports.create_user_post = (req, res, next) => {
       res.send("User created!");
       return;
     });
+  });
+};
+
+exports.update_user_post = (req, res, next) => {
+  const errors = validationResult(req);
+
+  if (!errors) {
+    res.send(errors);
+    return;
+  }
+
+  User.findOne({ user_name: req.body.user_name }).exec((err, found_user) => {
+    if (err) return next(err);
+    if (found_user) {
+      found_user.avatar_url = req.body.avatar_url;
+      found_user.save((err) => {
+        if (err) return next(err);
+        res.send("User updated!");
+        return;
+      });
+    } else {
+      res.send("User not found!");
+      return;
+    }
   });
 };
