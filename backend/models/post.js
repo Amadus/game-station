@@ -8,6 +8,7 @@ var postSchema = new Schema({
   price: { type: Number, min: 0, required: true },
   picture_urls: [{ type: String }],
   post_date: { type: Date, required: true },
+  condition: { type: String, required: true, enum: ["New", "Used"] },
   platform: {
     type: String,
     required: true,

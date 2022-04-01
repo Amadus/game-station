@@ -3,7 +3,7 @@ API
 /post/createpost POST
 用户新建一个post
 
-/post/updatepost POST
+/post/updatepost/:post_id POST
 用户修改一个post，主要用于修改price和status
 
 /post/deletepost/:id GET
@@ -23,3 +23,9 @@ API
 
 /comment/getcommentsbypostid/:post_id GET
 根据postid获得所有comments，供详情页面展示
+
+/user/createuser POST
+创建一个用户
+
+/user/updateuser/:user_name POST
+修改一个用户，主要用于更换头像
