@@ -8,5 +8,6 @@ router.post("/updatepost", post_controller.post_update);
 router.delete("/deletepost", post_controller.post_delete);
 router.get("/getpostbyid/:id", post_controller.post_get_by_id);
 router.get("/getallposts", post_controller.post_get_all);
+router.post("/getpostsbyfilters", post_controller.post_get_by_filters);
 
 module.exports = router;

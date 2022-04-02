@@ -120,6 +120,17 @@ exports.post_get_all = (req, res, next) => {
     });
 };
 
+exports.post_get_by_filters = (req, res, next) => {
+  const filters = req.body.filters;
+  Post.find(filters)
+    .sort({ post_date: -1 })
+    .populate("seller")
+    .exec((err, found_posts) => {
+      if (err) return next(err);
+      res.json(found_posts);
+    });
+};
+
 // exports.game_create_post = [
 //   (req, res, next) => {
 //     if (!(req.body.tag instanceof Array)) {

@@ -127,8 +127,55 @@ http://localhost:3030/post/getallposts
   }
 ]
 
-/post/getpostsbyseller/:user_name GET
-获取用户发布的所有posts
+/post/getpostsbyfilters POST
+通过filters获取posts
+常见的filters写法:
+// 找title包含关键字的
+{
+    "filters": {
+        "title": {"$regex": "Elden Ring"}
+    }
+}
+// 找某个user发布的
+{
+    "filters": {
+        "seller": "624785107d3ff9cfba36ee85"
+    }
+}
+// 找PS4的 
+{
+    "filters": {
+        "platform": "PlayStation 4"
+    }
+}
+// 找全新的
+{
+    "filters": {
+        "condition": "New"
+    }
+}
+// 找在卖的
+{
+    "filters": {
+        "status": "Selling"
+    }
+}
+// 找价格在某个区间的，比如50到100
+{
+    "filters": {
+        "price": {
+            "$gte": 50,
+            "$lte": 100
+        }
+    }
+}
+// 多个条件的，只需在filters里多写几项即可
+{
+    "filters": {
+        "title": {"$regex": "Elden Ring"},
+        "platform": "Xbox Series X|S"
+    }
+}
 
 /comment/createcomment POST
 用户增加一条评论
