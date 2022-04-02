@@ -82,9 +82,9 @@ http://localhost:3030/user/updateuser
 # /user/getuserbyname/:user_name GET -- 已完成
 获得用户的信息
 返回的信息:
-{
+<p>{
   "_id": "624785107d3ff9cfba36ee85",
   "user_name": "Amadus",
   "avatar_url": "http://localhost:3030/public/images/amadus.png",
   "__v": 0
-}
+}</p>
