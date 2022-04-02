@@ -39,3 +39,6 @@ http://localhost:3030/user/updateuser
     "user_name": "Amadus",
     "avatar_url": "http://localhost:3030/public/images/amadus.png"
 }
+
+/user/getuserbyname/:user_name GET
+获得用户的信息

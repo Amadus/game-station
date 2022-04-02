@@ -50,3 +50,14 @@ exports.update_user_post = (req, res, next) => {
     }
   });
 };
+
+exports.get_user_info = (req, res, next) => {
+  User.findOne({ user_name: req.params.user_name }).exec((err, found_user) => {
+    if (err) return next(err);
+    if (!found_user) {
+      res.send("User not found!");
+      return;
+    }
+    res.json(found_user);
+  });
+};
