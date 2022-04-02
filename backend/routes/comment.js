@@ -1,8 +1,7 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
+const comment_controller = require('../controllers/commentController');
 
-router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
-});
+router.post('/createcomment', comment_controller.comment_create);
 
 module.exports = router;

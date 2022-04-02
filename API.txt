@@ -127,7 +127,7 @@ http://localhost:3030/post/getallposts
   }
 ]
 
-/post/getpostsbyfilters POST
+/post/getpostsbyfilters POST -- 已完成
 通过filters获取posts
 常见的filters写法:
 // 找title包含关键字的
@@ -177,8 +177,16 @@ http://localhost:3030/post/getallposts
     }
 }
 
-/comment/createcomment POST
+
+/comment/createcomment POST -- 已完成
 用户增加一条评论
+http://localhost:3030/comment/createcomment
+{
+    "user": "624785107d3ff9cfba36ee85",
+    "post": "6247d1f3996e79fd8a1bae0e",
+    "content": "Is this still available?"
+}
+
 
 /comment/getcommentsbypostid/:post_id GET
 根据postid获得所有comments，供详情页面展示
