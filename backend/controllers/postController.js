@@ -97,6 +97,17 @@ exports.post_delete = (req, res, next) => {
   });
 };
 
+exports.post_get_by_id = (req, res, next) => {
+    Post.findById(req.params.id).populate('seller').exec((err, found_post) => {
+        if (err) return next(err);
+        if (!found_post) {
+            res.send("Post not found!");
+            return;
+        }
+        res.json(found_post);
+    });
+};
+
 // exports.game_create_post = [
 //   (req, res, next) => {
 //     if (!(req.body.tag instanceof Array)) {
