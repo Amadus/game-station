@@ -1,0 +1,90 @@
+# 样本数据可以在这个库里看:
+MONGODB_URI="mongodb+srv://muziyulin111:88888888@cluster0.lg3si.mongodb.net/game-station?retryWrites=true&w=majority"
+
+
+# API 规范，开发进度:
+
+# /post/createpost POST -- 已完成
+用户新建一个post
+http://localhost:3030/post/createpost
+{
+    "title": "Elden Ring Xbox version used only for 3 months",
+    "price": 70,
+    "picture_urls": [
+        "picture_url_one",
+        "picture_url_two"
+    ],
+    "condition": "Used",
+    "platform": "Xbox Series X|S",
+    "postal_code": "V7C 0A4",
+    "description": "I bought it on BestBuy 3 months ago. It is in very good condition. No flaws or glitches.",
+    "status": "Selling",
+    "seller": "624785107d3ff9cfba36ee85" // 这个是user表的_id，可以通过/user/getuserbyname/:user_name 这个API获取
+}
+
+# /post/updatepost POST -- 已完成
+用户修改一个post，主要用于修改price和status等信息
+http://localhost:3030/post/updatepost
+{
+    "_id": "6247a57e4ef0983b2768812a",
+    "title": "Monster Hunter World, Xbox version used only for 3 months",
+    "price": 10,
+    "picture_urls": [
+        "picture_url_one",
+        "picture_url_two"
+    ],
+    "condition": "Used",
+    "platform": "Xbox One",
+    "postal_code": "V7C 0A4",
+    "description": "The disk is in very good condition. No flaws or glitches.",
+    "status": "Sold",
+    "seller": "624785107d3ff9cfba36ee85"
+}
+
+# /post/deletepost DELETE -- 已完成
+用户删除一个post，只需要传_id
+http://localhost:3030/post/deletepost
+{
+    "_id": "6247a57e4ef0983b2768812a"
+}
+
+/post/getpostbyid/:id GET
+获取一个post的详情
+
+/post/getallposts GET
+获取所有的posts
+
+/post/getpostsbyseller/:user_name GET
+获取用户发布的所有posts
+
+/comment/createcomment POST
+用户增加一条评论
+
+/comment/getcommentsbypostid/:post_id GET
+根据postid获得所有comments，供详情页面展示
+
+# /user/createuser POST -- 已完成
+创建一个用户
+http://localhost:3030/user/createuser
+{
+    "user_name": "Amadus",
+    "avatar_url": "http://localhost:3030/public/images/user1.png"
+}
+
+# /user/updateuser POST -- 已完成
+修改一个用户，用于更换头像。会根据当前user_name查找这个用户，然后更新其他字段，user_name本身不能更新。
+http://localhost:3030/user/updateuser
+{
+    "user_name": "Amadus",
+    "avatar_url": "http://localhost:3030/public/images/amadus.png"
+}
+
+# /user/getuserbyname/:user_name GET -- 已完成
+获得用户的信息
+返回的信息:
+{
+  "_id": "624785107d3ff9cfba36ee85",
+  "user_name": "Amadus",
+  "avatar_url": "http://localhost:3030/public/images/amadus.png",
+  "__v": 0
+}
