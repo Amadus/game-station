@@ -41,7 +41,7 @@ http://localhost:3030/post/updatepost
     "seller": "624785107d3ff9cfba36ee85"
 }
 
-/post/deletepost DELETE
+/post/deletepost DELETE -- 已完成
 用户删除一个post，只需要传_id
 http://localhost:3030/post/deletepost
 {
