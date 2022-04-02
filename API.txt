@@ -188,7 +188,7 @@ http://localhost:3030/comment/createcomment
 }
 
 
-/comment/getcommentsbypostid/:post_id GET
+/comment/getcommentsbypostid/:post_id GET -- 已完成
 根据postid获得所有comments，供详情页面展示，按照最近的在最前面的顺序
 [
   {
