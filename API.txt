@@ -189,7 +189,35 @@ http://localhost:3030/comment/createcomment
 
 
 /comment/getcommentsbypostid/:post_id GET
-根据postid获得所有comments，供详情页面展示
+根据postid获得所有comments，供详情页面展示，按照最近的在最前面的顺序
+[
+  {
+    "_id": "6247dd82de1733e635af9940",
+    "user": {
+      "_id": "624785107d3ff9cfba36ee85",
+      "user_name": "Amadus",
+      "avatar_url": "http://localhost:3030/public/images/amadus.png",
+      "__v": 0
+    },
+    "date": "2022-04-02T05:22:10.975Z",
+    "content": "Is this still available?",
+    "post": "6247d1f3996e79fd8a1bae0e",
+    "__v": 0
+  },
+  {
+    "_id": "6247dd63de1733e635af993e",
+    "user": {
+      "_id": "624785107d3ff9cfba36ee85",
+      "user_name": "Amadus",
+      "avatar_url": "http://localhost:3030/public/images/amadus.png",
+      "__v": 0
+    },
+    "date": "2022-04-02T05:21:39.498Z",
+    "content": "Big fan of KOF15 here!",
+    "post": "6247d1f3996e79fd8a1bae0e",
+    "__v": 0
+  }
+]
 
 /user/createuser POST -- 已完成
 创建一个用户
