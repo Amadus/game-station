@@ -58,28 +58,44 @@ exports.post_update = [
       return;
     }
     Post.findById(req.body._id).exec((err, found_post) => {
+      if (err) return next(err);
+      if (!found_post) {
+        res.send("Post not found!");
+        return;
+      }
+      found_post.title = req.body.title;
+      found_post.price = req.body.price;
+      found_post.picture_urls = req.body.picture_urls;
+      found_post.condition = req.body.condition;
+      found_post.platform = req.body.platform;
+      found_post.postal_code = req.body.postal_code;
+      found_post.description = req.body.description;
+      found_post.status = req.body.status;
+      found_post.seller = req.body.seller;
+      found_post.save((err) => {
         if (err) return next(err);
-        if (!found_post) {
-            res.send("Post not found!");
-            return;
-        }
-        found_post.title = req.body.title;
-        found_post.price = req.body.price;
-        found_post.picture_urls = req.body.picture_urls;
-        found_post.condition = req.body.condition;
-        found_post.platform = req.body.platform;
-        found_post.postal_code = req.body.postal_code;
-        found_post.description = req.body.description;
-        found_post.status = req.body.status;
-        found_post.seller = req.body.seller;
-        found_post.save((err) => {
-            if (err) return next(err);
-            res.send("Post updated!");
-            return;
-        });
+        res.send("Post updated!");
+        return;
+      });
     });
   },
 ];
+
+// 这边其实还需要删除所有相关的comments，现在先不处理
+exports.post_delete = (req, res, next) => {
+  Post.findById(req.body._id).exec((err, found_post) => {
+    if (err) return next(err);
+    if (!found_post) {
+      res.send("Post not found!");
+      return;
+    }
+    Post.findByIdAndRemove(req.body._id, (err) => {
+      if (err) return next(err);
+      res.send("Post deleted!");
+      return;
+    });
+  });
+};
 
 // exports.game_create_post = [
 //   (req, res, next) => {

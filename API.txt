@@ -24,6 +24,7 @@ http://localhost:3030/post/createpost
 
 /post/updatepost POST -- 已完成
 用户修改一个post，主要用于修改price和status等信息
+http://localhost:3030/post/updatepost
 {
     "_id": "6247a57e4ef0983b2768812a",
     "title": "Monster Hunter World, Xbox version used only for 3 months",
@@ -40,8 +41,12 @@ http://localhost:3030/post/createpost
     "seller": "624785107d3ff9cfba36ee85"
 }
 
-/post/deletepost/:id GET
-用户删除一个post
+/post/deletepost DELETE
+用户删除一个post，只需要传_id
+http://localhost:3030/post/deletepost
+{
+    "_id": "6247a57e4ef0983b2768812a"
+}
 
 /post/getpostbyid/:id GET
 获取一个post的详情
