@@ -1,6 +1,17 @@
 样本数据可以在这个库里看:
 MONGODB_URI="mongodb+srv://muziyulin111:88888888@cluster0.lg3si.mongodb.net/game-station?retryWrites=true&w=majority"
 
+用户登录之后，可以通过sub取到user的id，我们数据库里user表保持和auth0的id一致
+这是auth0可以得到的用户信息，下面这个例子，user的id取624868954a79520069d97376
+{
+  "nickname": "790494168",
+  "name": "790494168@qq.com",
+  "picture": "https://s.gravatar.com/avatar/f4139221fa7c156aaf3860b22519307a?s=480&r=pg&d=https%3A%2F%2Fcdn.auth0.com%2Favatars%2F79.png",
+  "updated_at": "2022-04-02T15:15:33.052Z",
+  "email": "790494168@qq.com",
+  "email_verified": false,
+  "sub": "auth0|624868954a79520069d97376"
+}
 
 API 规范，开发进度:
 
@@ -19,7 +30,7 @@ http://localhost:3030/post/createpost
     "postal_code": "V7C 0A4",
     "description": "I bought it on BestBuy 3 months ago. It is in very good condition. No flaws or glitches.",
     "status": "Selling",
-    "seller": "624785107d3ff9cfba36ee85" // 这个是user表的_id，可以通过/user/getuserbyname/:user_name 这个API获取
+    "seller": "624785107d3ff9cfba36ee85" // 可以通过auth0获取
 }
 
 /post/updatepost POST -- 已完成
@@ -220,22 +231,25 @@ http://localhost:3030/comment/createcomment
 ]
 
 /user/createuser POST -- 已完成
-创建一个用户
+创建一个用户，_id取auth0里的
 http://localhost:3030/user/createuser
 {
-    "user_name": "Amadus",
-    "avatar_url": "http://localhost:3030/public/images/user1.png"
+    "_id": "624868954a79520069d97376",
+    "user_name": "Peter",
+    "avatar_url": "https://s.gravatar.com/avatar/f4139221fa7c156aaf3860b22519307a?s=480&r=pg&d=https%3A%2F%2Fcdn.auth0.com%2Favatars%2F79.png"
 }
 
 /user/updateuser POST -- 已完成
-修改一个用户，用于更换头像。会根据当前user_name查找这个用户，然后更新其他字段，user_name本身不能更新。
+修改一个用户，用于更换头像。会根据当前id查找这个用户，然后更新其他字段，user_name本身不能更新。
 http://localhost:3030/user/updateuser
 {
+    "_id": "624785107d3ff9cfba36ee85",
     "user_name": "Amadus",
-    "avatar_url": "http://localhost:3030/public/images/amadus.png"
+    "avatar_url": "Another url"
 }
 
 /user/getuserbyname/:user_name GET -- 已完成
+/user/getuserbyid/:id GET -- 已完成
 获得用户的信息
 返回的信息:
 {
