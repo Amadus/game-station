@@ -19,9 +19,9 @@ function Navbar() {
             className="navbar-logo"
             onClick={closeMobileMenu}
           >
-            <img shape="circle" src="/images/logo.png" />
+            <img shape="circle" src="/images/logo.png" alt="Game Station logo"/>
             <div style={{ marginLeft: "10px" }}>
-              <p className="nav-title1">Game Station</p>{" "}
+              <p className="nav-title1">Game Station</p>
             </div>
           </Link>
           <div className="menu-icon" onClick={handleClick}>
