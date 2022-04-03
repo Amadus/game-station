@@ -1,9 +1,14 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { useAuth0 } from "@auth0/auth0-react";
 import "./Navbar.css";
+import "./LoginButton";
+import "./LogoutButton";
+import LoginButton from "./LoginButton";
 
 function Navbar() {
   const [click, setClick] = useState(false);
+  const { loginWithRedirect } = useAuth0();
 
   const handleClick = () => setClick(!click);
   const closeMobileMenu = () => {
@@ -19,7 +24,7 @@ function Navbar() {
             className="navbar-logo"
             onClick={closeMobileMenu}
           >
-            <img shape="circle" src="/images/logo.png" alt="Game Station logo"/>
+            <img shape="circle" src="/images/logo.png" alt="Game Station logo" />
             <div style={{ marginLeft: "10px" }}>
               <p className="nav-title1">Game Station</p>
             </div>
@@ -55,18 +60,11 @@ function Navbar() {
                 Sell
               </Link>
             </li>
-            <li className="nav-item">
-              <Link
-                to="/sell"
-                className="nav-links"
-                onClick={closeMobileMenu}
-              >
-                Login
-              </Link>
-            </li>
+            <LoginButton />
           </ul>
         </div>
       </nav>
+
     </>
   );
 }
