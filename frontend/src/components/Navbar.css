@@ -69,6 +69,17 @@
   transition: all 0.2s ease-out;
 }
 
+button {
+  color: #fff;
+  background-color: green;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  border-radius: 0.4rem;
+  margin-top: 2rem;
+  padding: 0.5rem 1rem;
+}
+
 .fa-bars {
   color: #fff;
 }
@@ -111,6 +122,18 @@
     display: table;
     border: 2px solid #fff;
     border-radius: 8px;
+  }
+
+  button {
+    font-size: large;
+    margin: 1rem 0 0 15%;
+    padding: 1rem;
+    width: 70%;
+    display: table;
+    border: 2px solid #fff;
+    border-radius: 8px;
+    color: #fff;
+    background-color: green;
   }
 
   .menu-icon {

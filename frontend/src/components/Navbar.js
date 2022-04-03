@@ -5,10 +5,12 @@ import "./Navbar.css";
 import "./LoginButton";
 import "./LogoutButton";
 import LoginButton from "./LoginButton";
+import LogoutButton from "./LogoutButton";
+
 
 function Navbar() {
   const [click, setClick] = useState(false);
-  const { loginWithRedirect } = useAuth0();
+  const { isAuthenticated, isLoading } = useAuth0();
 
   const handleClick = () => setClick(!click);
   const closeMobileMenu = () => {
@@ -61,7 +63,7 @@ function Navbar() {
               </Link>
             </li>
             <li className="nav-item">
-              <LoginButton />
+              {isAuthenticated ? <LogoutButton /> : <LoginButton />}
             </li>
           </ul>
         </div>

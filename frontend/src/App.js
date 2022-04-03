@@ -15,13 +15,19 @@ function App() {
 
   return (
     <>
-      <Navbar />
-      <Routes>
-        <Route path='/' exact element={<Home />} />
-        <Route path='/games' exact element={<Games />} />
-        <Route path='/sell' exact element={<Sell />} />
-        <Route path='/profile' exact element={<Profile />} />
-      </Routes>
+      {isLoading ? (
+        <img src="loading.svg" alt="Loading" />
+      ) : (
+        <>
+          <Navbar />
+          <Routes>
+            <Route path='/' exact element={<Home />} />
+            <Route path='/games' exact element={<Games />} />
+            <Route path='/sell' exact element={<Sell />} />
+            <Route path='/profile' exact element={<Profile />} />
+          </Routes>
+        </>
+      )}
     </>
   );
 }
