@@ -16,7 +16,6 @@ function App() {
   return (
     <>
       <Navbar />
-      <LoginButton />
       <Routes>
         <Route path='/' exact element={<Home />} />
         <Route path='/games' exact element={<Games />} />

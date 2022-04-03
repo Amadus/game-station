@@ -61,13 +61,7 @@ function Navbar() {
               </Link>
             </li>
             <li className="nav-item">
-              <Link
-                to="/sell"
-                className="nav-links"
-                onClick={closeMobileMenu}
-              >
-                Login
-              </Link>
+              <LoginButton />
             </li>
           </ul>
         </div>
