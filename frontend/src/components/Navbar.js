@@ -60,7 +60,7 @@ function Navbar() {
                 Sell
               </Link>
             </li>
-            <LoginButton />
+
           </ul>
         </div>
       </nav>

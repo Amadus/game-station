@@ -6,13 +6,17 @@ import Home from './components/Home/Home';
 import Games from './components/Games/Games';
 import Sell from './components/Sell/Sell';
 import Profile from './components/Profile/Profile';
-import Auth0ProviderWithHistory from "./components/Auth0ProviderWithHistory";
 import { useAuth0 } from "@auth0/auth0-react";
+import LoginButton from "./components/LoginButton";
 
 function App() {
+
+  const { isAuthenticated, isLoading } = useAuth0();
+
   return (
     <>
       <Navbar />
+      <LoginButton />
       <Routes>
         <Route path='/' exact element={<Home />} />
         <Route path='/games' exact element={<Games />} />
