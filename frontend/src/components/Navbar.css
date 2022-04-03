@@ -30,7 +30,6 @@
 }
 
 .navbar-logo img {
-  margin-top: 9px;
   width: 50px;
 }
 
@@ -49,7 +48,7 @@
   height: 100px;
 }
 
-.nav-title1{
+.nav-title1 {
   font-weight: bold;
   letter-spacing: 1px;
   line-height: 27px;
@@ -61,7 +60,7 @@
   display: flex;
   align-items: center;
   text-decoration: none;
-  margin-top: 1.5rem;
+  margin-top: 2rem;
   padding: 0.5rem 1rem;
 }
 
@@ -97,7 +96,7 @@
   }
 
   .nav-menu.active {
-    display:flex;
+    display: flex;
     background: #242222;
     left: 0;
     opacity: 1;
@@ -106,7 +105,7 @@
   }
 
   .nav-links {
-    margin:1rem 0 0 15%;
+    margin: 1rem 0 0 15%;
     padding: 1rem;
     width: 70%;
     display: table;
@@ -117,7 +116,7 @@
   .menu-icon {
     display: block;
     position: absolute;
-    bottom:2.8rem;
+    bottom: 2.8rem;
     right: 0;
     transform: translate(-100%, 60%);
     font-size: 1.8rem;
