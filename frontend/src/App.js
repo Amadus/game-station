@@ -1,13 +1,12 @@
 import React from 'react';
 import Navbar from './components/Navbar';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import './App.css';
 import Home from './components/Home/Home';
 import Games from './components/Games/Games';
 import Sell from './components/Sell/Sell';
 import Profile from './components/Profile/Profile';
 import { useAuth0 } from "@auth0/auth0-react";
-import LoginButton from "./components/LoginButton";
 
 function App() {
 
