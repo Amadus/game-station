@@ -2,13 +2,13 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import "./Navbar.css";
-import "./LoginButton";
-import "./LogoutButton";
 import LoginButton from "./LoginButton";
+import LogoutButton from "./LogoutButton";
+
 
 function Navbar() {
   const [click, setClick] = useState(false);
-  const { loginWithRedirect } = useAuth0();
+  const { isAuthenticated, isLoading } = useAuth0();
 
   const handleClick = () => setClick(!click);
   const closeMobileMenu = () => {
@@ -61,7 +61,7 @@ function Navbar() {
               </Link>
             </li>
             <li className="nav-item">
-              <LoginButton />
+              {isAuthenticated ? <LogoutButton /> : <LoginButton />}
             </li>
           </ul>
         </div>
