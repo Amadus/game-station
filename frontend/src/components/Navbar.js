@@ -5,10 +5,9 @@ import "./Navbar.css";
 import LoginButton from "./LoginButton";
 import LogoutButton from "./LogoutButton";
 
-
 function Navbar() {
   const [click, setClick] = useState(false);
-  const { isAuthenticated, isLoading } = useAuth0();
+  const { isAuthenticated } = useAuth0();
 
   const handleClick = () => setClick(!click);
   const closeMobileMenu = () => {
@@ -19,12 +18,12 @@ function Navbar() {
     <>
       <nav className="navbar">
         <div className="navbar-container">
-          <Link
-            to="/"
-            className="navbar-logo"
-            onClick={closeMobileMenu}
-          >
-            <img shape="circle" src="/images/logo.png" alt="Game Station logo" />
+          <Link to="/" className="navbar-logo" onClick={closeMobileMenu}>
+            <img
+              shape="circle"
+              src="/images/logo.png"
+              alt="Game Station logo"
+            />
             <div style={{ marginLeft: "10px" }}>
               <p className="nav-title1">Game Station</p>
             </div>
@@ -34,29 +33,17 @@ function Navbar() {
           </div>
           <ul className={click ? "nav-menu active" : "nav-menu"}>
             <li className="nav-item">
-              <Link
-                to="/"
-                className="nav-links"
-                onClick={closeMobileMenu}
-              >
+              <Link to="/" className="nav-links" onClick={closeMobileMenu}>
                 Home
               </Link>
             </li>
             <li className="nav-item">
-              <Link
-                to="/games"
-                className="nav-links"
-                onClick={closeMobileMenu}
-              >
+              <Link to="/games" className="nav-links" onClick={closeMobileMenu}>
                 Games
               </Link>
             </li>
             <li className="nav-item">
-              <Link
-                to="/sell"
-                className="nav-links"
-                onClick={closeMobileMenu}
-              >
+              <Link to="/sell" className="nav-links" onClick={closeMobileMenu}>
                 Sell
               </Link>
             </li>
@@ -66,7 +53,6 @@ function Navbar() {
           </ul>
         </div>
       </nav>
-
     </>
   );
 }

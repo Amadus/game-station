@@ -1,18 +1,23 @@
 import React, { useState } from "react";
 import "./Sell.css";
 import { useAuth0 } from "@auth0/auth0-react";
+import { useNavigate } from "react-router-dom";
 
 export default function Sell() {
   const { user } = useAuth0();
   const seller = user.sub.substring(user.sub.indexOf("|") + 1).padEnd(24, "0");
 
+  const navigate = useNavigate();
+
   const [title, setTitle] = useState("");
   const [price, setPrice] = useState(0);
-  const [picture_urls, setPicture_urls] = useState([]);
+  // const [picture_urls, setPicture_urls] = useState([]);
   const [condition, setCondition] = useState("");
   const [platform, setPlatform] = useState("");
   const [postal_code, setPostal_code] = useState("");
   const [description, setDescription] = useState("");
+
+  const picture_urls = [];
 
   const conditionChange = () => {
     setCondition(document.getElementById("condition").value);
@@ -52,7 +57,7 @@ export default function Sell() {
         .then((res) => res.text())
         .then((text) => console.log(text))
         .then(alert("You have succuessfully submit your request!"))
-        .then(window.location.reload());
+        .then(navigate("/"));
     }
   };
 
