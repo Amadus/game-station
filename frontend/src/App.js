@@ -15,7 +15,7 @@ function App() {
   return (
     <>
       {isLoading ? (
-        <img src="loading.svg" alt="Loading" />
+        <img src="images/loading.svg" alt="Loading" />
       ) : (
         <>
           <Navbar />
