@@ -70,30 +70,6 @@ function Navbar() {
             </li>
             <li className="nav-item">
               {isAuthenticated ? <LogoutButton /> : <LoginButton />}
-              <div>
-                <Button
-                  id="basic-button"
-                  aria-controls={open ? 'basic-menu' : undefined}
-                  aria-haspopup="true"
-                  aria-expanded={open ? 'true' : undefined}
-                  onClick={handleProfileClick}
-                >
-                  Dashboard
-                </Button>
-                <Menu
-                  id="basic-menu"
-                  anchorEl={anchorEl}
-                  open={open}
-                  onClose={handleProfileClose}
-                  MenuListProps={{
-                    'aria-labelledby': 'basic-button',
-                  }}
-                >
-                  <MenuItem onClick={handleProfileClose}>Profile</MenuItem>
-                  <MenuItem onClick={handleProfileClose}>My account</MenuItem>
-                  <MenuItem onClick={handleProfileClose}>Logout</MenuItem>
-                </Menu>
-              </div>
             </li>
           </ul>
         </div>
