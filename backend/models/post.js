@@ -20,6 +20,7 @@ var postSchema = new Schema({
       "Xbox Series X|S",
     ],
   },
+  city: { type: String, required: true },
   postal_code: { type: String, required: true, maxlength: 20 },
   description: { type: String, maxlength: 300 },
   status: {

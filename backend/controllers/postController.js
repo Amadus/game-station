@@ -28,6 +28,7 @@ exports.post_create = [
       post_date: Date.now(),
       condition: req.body.condition,
       platform: req.body.platform,
+      city: req.body.city,
       postal_code: req.body.postal_code,
       description: req.body.description,
       status: req.body.status,
@@ -68,6 +69,7 @@ exports.post_update = [
       found_post.picture_urls = req.body.picture_urls;
       found_post.condition = req.body.condition;
       found_post.platform = req.body.platform;
+      found_post.city = req.body.city;
       found_post.postal_code = req.body.postal_code;
       found_post.description = req.body.description;
       found_post.status = req.body.status;

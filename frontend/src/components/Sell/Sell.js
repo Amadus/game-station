@@ -2,6 +2,15 @@ import React, { useState } from "react";
 import "./Sell.css";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useNavigate } from "react-router-dom";
+import TextField from "@mui/material/TextField";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
+import Button from "@mui/material/Button";
+import Stack from "@mui/material/Stack";
+import Autocomplete from "@mui/material/Autocomplete";
+import { cities } from "./Sell.constant";
 
 export default function Sell() {
   const { user } = useAuth0();
@@ -11,29 +20,20 @@ export default function Sell() {
 
   const [title, setTitle] = useState("");
   const [price, setPrice] = useState(0);
-  // const [picture_urls, setPicture_urls] = useState([]);
+  const [picture_urls, setPicture_urls] = useState([]);
   const [condition, setCondition] = useState("");
   const [platform, setPlatform] = useState("");
+  const [city, setCity] = useState("");
   const [postal_code, setPostal_code] = useState("");
   const [description, setDescription] = useState("");
 
-  const picture_urls = [];
-
-  const conditionChange = () => {
-    setCondition(document.getElementById("condition").value);
-  };
-
-  const platformChange = () => {
-    setPlatform(document.getElementById("platform").value);
-  };
-
   const clickSubmit = (e) => {
-    e.preventDefault();
     if (
       title === "" ||
       // picture_urls === [] ||
       condition === "" ||
       platform === "" ||
+      city === "" ||
       postal_code === ""
     ) {
       alert("Please complete the form!");
@@ -44,6 +44,7 @@ export default function Sell() {
       post.picture_urls = picture_urls;
       post.condition = condition;
       post.platform = platform;
+      post.city = city;
       post.postal_code = postal_code;
       post.description = description;
       post.status = "Selling";
@@ -66,82 +67,72 @@ export default function Sell() {
       <div className="suf-box-log">
         <section className="suf-subscription">
           <div className="input-areas">
-            <form>
-              <input
-                className="suf-input-first"
+            <Stack spacing={2}>
+              <TextField
+                required
                 id="title"
-                type="text"
-                placeholder="Title"
-                onBlur={() => {
-                  setTitle(document.getElementById("title").value);
-                }}
+                label="Title"
+                defaultValue=""
+                onBlur={(e) => setTitle(e.target.value)}
               />
-            </form>
-            <form>
-              <input
-                className="suf-input-first"
+              <TextField
+                required
                 id="price"
+                label="Price"
                 type="number"
-                min="0"
-                step="0.01"
-                placeholder="Price"
-                onBlur={() => {
-                  setPrice(document.getElementById("price").value);
-                }}
+                onBlur={(e) => setPrice(e.target.value)}
               />
-            </form>
-            <form>
-              <select
-                className="suf-input-first"
-                id="condition"
-                onChange={conditionChange}
-              >
-                <option value="">Select condition</option>
-                <option value="Used">Used</option>
-                <option value="New">New</option>
-              </select>
-            </form>
-            <form>
-              <select
-                className="suf-input-first"
-                id="platform"
-                onChange={platformChange}
-              >
-                <option value="">Select platform</option>
-                <option value="PlayStation 5">PlayStation 5</option>
-                <option value="PlayStation 4">PlayStation 4</option>
-                <option value="Xbox Series X|S">Xbox Series X|S</option>
-                <option value="Xbox One">Xbox One</option>
-                <option value="Nintendo Switch">Nintendo Switch</option>
-              </select>
-            </form>
-            <form>
-              <input
-                className="suf-input-first"
+              <FormControl fullWidth>
+                <InputLabel id="select-label-condition">Condition</InputLabel>
+                <Select
+                  labelId="select-label-condition"
+                  id="condition"
+                  label="Condition"
+                  onChange={(e) => setCondition(e.target.value)}
+                >
+                  <MenuItem value="Used">Used</MenuItem>
+                  <MenuItem value="New">New</MenuItem>
+                </Select>
+              </FormControl>
+              <FormControl fullWidth>
+                <InputLabel id="select-label-platform">Platform</InputLabel>
+                <Select
+                  labelId="select-label-platform"
+                  id="platform"
+                  label="Platform"
+                  onChange={(e) => setPlatform(e.target.value)}
+                >
+                  <MenuItem value="PlayStation 5">PlayStation 5</MenuItem>
+                  <MenuItem value="PlayStation 4">PlayStation 4</MenuItem>
+                  <MenuItem value="Xbox Series X|S">Xbox Series X|S</MenuItem>
+                  <MenuItem value="Xbox One">Xbox One</MenuItem>
+                  <MenuItem value="Nintendo Switch">Nintendo Switch</MenuItem>
+                </Select>
+              </FormControl>
+              <Autocomplete
+                disablePortal
+                id="city"
+                options={cities}
+                renderInput={(params) => <TextField {...params} label="City" />}
+                onChange={(e) => setCity(e.target.innerText)}
+              />
+              <TextField
+                required
                 id="postcal_code"
-                type="text"
-                placeholder="Postal Code"
-                onBlur={() => {
-                  setPostal_code(document.querySelector("#postcal_code").value);
-                }}
+                label="Postal Code"
+                onBlur={(e) => setPostal_code(e.target.value)}
               />
-            </form>
-            <form>
-              <input
-                className="suf-input-first"
+              <TextField
                 id="description"
-                type="text"
-                placeholder="Description"
-                onBlur={() => {
-                  setDescription(document.querySelector("#description").value);
-                }}
+                label="Description"
+                multiline
+                maxRows={4}
+                onChange={(e) => setDescription(e.target.value)}
               />
-            </form>
-            <form>
-              <button className="suf-submit" onClick={clickSubmit}>
+              <Button variant="contained" onClick={clickSubmit}>
                 Create Post
-              </button>
-            </form>
+              </Button>
+            </Stack>
           </div>
         </section>
       </div>
