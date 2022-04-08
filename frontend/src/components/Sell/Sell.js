@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import "./Sell.css";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useNavigate } from "react-router-dom";
+import { IconButton, Input, Container } from "@mui/material";
+import PhotoCamera from "@mui/icons-material/PhotoCamera";
 import TextField from "@mui/material/TextField";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
@@ -26,11 +28,12 @@ export default function Sell() {
   const [city, setCity] = useState("");
   const [postal_code, setPostal_code] = useState("");
   const [description, setDescription] = useState("");
+  const [image, setImage] = useState("");
 
   const clickSubmit = (e) => {
     if (
       title === "" ||
-      // picture_urls === [] ||
+      picture_urls.length === 0 ||
       condition === "" ||
       platform === "" ||
       city === "" ||
@@ -41,6 +44,7 @@ export default function Sell() {
       const post = {};
       post.title = title;
       post.price = price;
+      console.log(picture_urls);
       post.picture_urls = picture_urls;
       post.condition = condition;
       post.platform = platform;
@@ -62,77 +66,126 @@ export default function Sell() {
     }
   };
 
+  const uploadImage = async (e) => {
+    const files = e.target.files;
+    const data = new FormData();
+    data.append("file", files[0]);
+    data.append("upload_preset", "gamestationca");
+    const res = await fetch(
+      "https://api.cloudinary.com/v1_1/gamestationca/image/upload",
+      {
+        method: "POST",
+        body: data,
+      }
+    );
+    const file = await res.json();
+    setImage(file.secure_url);
+    let urls = [];
+    urls.push(file.secure_url);
+    setPicture_urls(urls);
+  };
+
   return (
-    <div className="log-container">
+    <div className="sell-container">
       <div className="suf-box-log">
         <section className="suf-subscription">
           <div className="input-areas">
-            <Stack spacing={2}>
-              <TextField
-                required
-                id="title"
-                label="Title"
-                defaultValue=""
-                onBlur={(e) => setTitle(e.target.value)}
-              />
-              <TextField
-                required
-                id="price"
-                label="Price"
-                type="number"
-                onBlur={(e) => setPrice(e.target.value)}
-              />
-              <FormControl fullWidth>
-                <InputLabel id="select-label-condition">Condition</InputLabel>
-                <Select
-                  labelId="select-label-condition"
-                  id="condition"
-                  label="Condition"
-                  onChange={(e) => setCondition(e.target.value)}
+            <form>
+              <Stack spacing={3} id="sell-stack">
+                <label htmlFor="icon-button-file1" id="image-box-1">
+                  <Input
+                    accept="image/*"
+                    id="icon-button-file1"
+                    type="file"
+                    onChange={uploadImage}
+                  />
+                  <IconButton
+                    color="primary"
+                    aria-label="upload picture"
+                    component="span"
+                    id="icon-button-1"
+                  >
+                    {!image ? (
+                      <PhotoCamera id="image-icon-1" />
+                    ) : (
+                        <img src={image} alt="image" id="image-1"/>
+                    )}
+                  </IconButton>
+                </label>
+                <TextField
+                  required
+                  id="title"
+                  label="Title"
+                  defaultValue=""
+                  onBlur={(e) => setTitle(e.target.value)}
+                />
+                <TextField
+                  required
+                  id="price"
+                  label="Price"
+                  type="number"
+                  onBlur={(e) => setPrice(e.target.value)}
+                />
+                <FormControl fullWidth>
+                  <InputLabel id="select-label-condition">Condition</InputLabel>
+                  <Select
+                    labelId="select-label-condition"
+                    id="condition"
+                    label="Condition"
+                    onChange={(e) => setCondition(e.target.value)}
+                  >
+                    <MenuItem value="Used">Used</MenuItem>
+                    <MenuItem value="New">New</MenuItem>
+                  </Select>
+                </FormControl>
+                <FormControl fullWidth>
+                  <InputLabel id="select-label-platform">Platform</InputLabel>
+                  <Select
+                    labelId="select-label-platform"
+                    id="platform"
+                    label="Platform"
+                    onChange={(e) => setPlatform(e.target.value)}
+                  >
+                    <MenuItem value="PlayStation 5">PlayStation 5</MenuItem>
+                    <MenuItem value="PlayStation 4">PlayStation 4</MenuItem>
+                    <MenuItem value="Xbox Series X|S">Xbox Series X|S</MenuItem>
+                    <MenuItem value="Xbox One">Xbox One</MenuItem>
+                    <MenuItem value="Nintendo Switch">Nintendo Switch</MenuItem>
+                  </Select>
+                </FormControl>
+                <Autocomplete
+                  disablePortal
+                  id="city"
+                  options={cities}
+                  renderInput={(params) => (
+                    <TextField {...params} label="City" />
+                  )}
+                  onChange={(e) => setCity(e.target.innerText)}
+                />
+                <TextField
+                  required
+                  id="postcal_code"
+                  label="Postal Code"
+                  onBlur={(e) => setPostal_code(e.target.value)}
+                />
+                <TextField
+                  id="description"
+                  label="Description"
+                  multiline
+                  maxRows={4}
+                  onChange={(e) => setDescription(e.target.value)}
+                />
+                <Button
+                  fullwidth
+                  variant="contained"
+                  onClick={clickSubmit}
+                  size="large"
+                  id="submit-button"
                 >
-                  <MenuItem value="Used">Used</MenuItem>
-                  <MenuItem value="New">New</MenuItem>
-                </Select>
-              </FormControl>
-              <FormControl fullWidth>
-                <InputLabel id="select-label-platform">Platform</InputLabel>
-                <Select
-                  labelId="select-label-platform"
-                  id="platform"
-                  label="Platform"
-                  onChange={(e) => setPlatform(e.target.value)}
-                >
-                  <MenuItem value="PlayStation 5">PlayStation 5</MenuItem>
-                  <MenuItem value="PlayStation 4">PlayStation 4</MenuItem>
-                  <MenuItem value="Xbox Series X|S">Xbox Series X|S</MenuItem>
-                  <MenuItem value="Xbox One">Xbox One</MenuItem>
-                  <MenuItem value="Nintendo Switch">Nintendo Switch</MenuItem>
-                </Select>
-              </FormControl>
-              <Autocomplete
-                disablePortal
-                id="city"
-                options={cities}
-                renderInput={(params) => <TextField {...params} label="City" />}
-                onChange={(e) => setCity(e.target.innerText)}
-              />
-              <TextField
-                required
-                id="postcal_code"
-                label="Postal Code"
-                onBlur={(e) => setPostal_code(e.target.value)}
-              />
-              <TextField
-                id="description"
-                label="Description"
-                multiline
-                maxRows={4}
-                onChange={(e) => setDescription(e.target.value)}
-              />
-              <Button variant="contained" onClick={clickSubmit}>
-                Create Post
-              </Button>
-            </Stack>
+                  Create Post
+                </Button>
+              </Stack>
+            </form>
           </div>
         </section>
       </div>
