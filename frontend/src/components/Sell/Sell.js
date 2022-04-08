@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import "./Sell.css";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useNavigate } from "react-router-dom";
+import { IconButton, Input } from "@mui/material";
+import PhotoCamera from "@mui/icons-material/PhotoCamera";
 
 export default function Sell() {
   const { user } = useAuth0();
@@ -16,6 +18,10 @@ export default function Sell() {
   const [platform, setPlatform] = useState("");
   const [postal_code, setPostal_code] = useState("");
   const [description, setDescription] = useState("");
+
+  const [image, setImage] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [showIcon, setShowIcon] = useState(true);
 
   const picture_urls = [];
 
@@ -61,11 +67,58 @@ export default function Sell() {
     }
   };
 
+  const uploadImage = async (e) => {
+    const files = e.target.files;
+    const data = new FormData();
+    data.append("file", files[0]);
+    data.append("upload_preset", "gamestationca");
+    setLoading(true);
+    const res = await fetch(
+      "https://api.cloudinary.com/v1_1/gamestationca/image/upload",
+      {
+        method: "POST",
+        body: data,
+      }
+    );
+    const file = await res.json();
+    setImage(file.secure_url);
+    console.log(file.secure_url);
+    setLoading(false);
+    setShowIcon(false);
+  };
+
   return (
     <div className="log-container">
       <div className="suf-box-log">
         <section className="suf-subscription">
           <div className="input-areas">
+            <form>
+              {/* <input
+                type="file"
+                name="file"
+                placeholder="Update an image"
+                onChange={uploadImage}
+              /> */}
+              {showIcon && (
+                <label htmlFor="icon-button-file1" id="image-box-1">
+                  <Input
+                    accept="image/*"
+                    id="icon-button-file1"
+                    type="file"
+                    onChange={uploadImage}
+                  />
+                  <IconButton
+                    color="primary"
+                    aria-label="upload picture"
+                    component="span"
+                    id="icon-button-1"
+                  >
+                    <PhotoCamera id="image-icon-1" />
+                  </IconButton>
+                </label>
+              )}
+              {loading ? <h3>Loading...</h3> : <img src={image} id="image-1"/>}
+            </form>
             <form>
               <input
                 className="suf-input-first"
