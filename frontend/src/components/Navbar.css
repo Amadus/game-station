@@ -35,7 +35,7 @@
 
 .nav-menu {
   display: grid;
-  grid-template-columns: repeat(4, auto);
+  grid-template-columns: repeat(5, auto);
   grid-gap: 10px;
   list-style: none;
   text-align: center;
@@ -80,12 +80,26 @@ button {
   padding: 0.5rem 1rem;
 }
 
+#dashboardButton {
+  padding: 0%;
+  color: #fff;
+  font-family: "PT Sans", sans-serif;
+  text-transform: none;
+  font-size: 1.2rem;
+}
+
 .fa-bars {
   color: #fff;
 }
 
 .menu-icon {
   display: none;
+}
+
+.dashboardElements {
+  text-decoration: none;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  color: #000;
 }
 
 @media screen and (max-width: 960px) {
