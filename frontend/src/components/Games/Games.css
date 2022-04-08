@@ -1,5 +1,41 @@
 .game-page {
-  background-color:#eeeeee;
-  min-height:50vh;
-  padding: 2rem 3rem 0rem 3rem;
+  background-color: #eeeeee;
+  min-height: 50vh;
+  height: 100%;
+  padding: 2rem 0rem 0rem 4rem;
+}
+
+#filter-stack {
+  position: sticky;
+  top: 7rem;
+  padding: 2rem 10%;
+  max-height: 85vh;
+  overflow-y: scroll;
+  background-color: white;
+  box-shadow: 0 6px 20px rgba(24, 53, 106, 0.17);
+  border-radius: 10px;
+}
+
+#games-section {
+  padding-left: 5%;
+}
+
+#search-button {
+  width: 100%;
+}
+
+#search-games,
+#more-filters {
+  box-shadow: 0 1px 5px rgba(24, 53, 106, 0.17);
+}
+
+@media only screen and (max-width: 900px) {
+  .game-page {
+    padding: 2rem 10% 0 10%;
+  }
+
+  #games-section {
+    padding: 0;
+    margin-top: 2rem;
+  }
 }
