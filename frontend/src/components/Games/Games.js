@@ -18,6 +18,7 @@ import {
   MenuItem,
   Autocomplete,
   Stack,
+  Grid,
 } from "@mui/material";
 import { cities } from "../Sell/Sell.constant";
 import { Box } from "@mui/system";
@@ -73,16 +74,16 @@ export default function Games() {
   };
 
   return (
-    <div className="game-page">
-      <Box sx={{ width: 600, margin: "auto" }}>
-        <Stack spacing={2}>
+    <Grid container className="game-page">
+      <Grid item md={3} xs={12} id="filter-section">
+        <Stack spacing={3} id="filter-stack">
           <TextField
             id="search-games"
             label="Search Games"
             defaultValue=""
             onChange={(e) => setKeyWord(e.target.value)}
           />
-          <Accordion>
+          <Accordion id="more-filters">
             <AccordionSummary
               expandIcon={<ExpandMoreIcon />}
               aria-controls="panel1a-content"
@@ -158,17 +159,22 @@ export default function Games() {
               </Typography>
             </AccordionDetails>
           </Accordion>
-          <Button variant="contained" onClick={clickSearchButton}>
+          <Button
+            variant="contained"
+            id="search-button"
+            onClick={clickSearchButton}
+            size="large"
+          >
             Search
           </Button>
         </Stack>
-      </Box>
-      <section>
+      </Grid>
+      <Grid item md={9} xs={12} id="games-section">
         <h2 className="game-title">
           <FontAwesomeIcon id="game-icon" icon={faGamepad} /> Games
         </h2>
         <GameSection games={games} />
-      </section>
-    </div>
+      </Grid>
+    </Grid>
   );
 }
