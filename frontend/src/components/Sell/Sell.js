@@ -4,6 +4,15 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { useNavigate } from "react-router-dom";
 import { IconButton, Input } from "@mui/material";
 import PhotoCamera from "@mui/icons-material/PhotoCamera";
+import TextField from "@mui/material/TextField";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
+import Button from "@mui/material/Button";
+import Stack from "@mui/material/Stack";
+import Autocomplete from "@mui/material/Autocomplete";
+import { cities } from "./Sell.constant";
 
 export default function Sell() {
   const { user } = useAuth0();
@@ -13,17 +22,16 @@ export default function Sell() {
 
   const [title, setTitle] = useState("");
   const [price, setPrice] = useState(0);
-  // const [picture_urls, setPicture_urls] = useState([]);
+  const [picture_urls, setPicture_urls] = useState([]);
   const [condition, setCondition] = useState("");
   const [platform, setPlatform] = useState("");
+  const [city, setCity] = useState("");
   const [postal_code, setPostal_code] = useState("");
   const [description, setDescription] = useState("");
 
   const [image, setImage] = useState("");
   const [loading, setLoading] = useState(false);
   const [showIcon, setShowIcon] = useState(true);
-
-  const picture_urls = [];
 
   const conditionChange = () => {
     setCondition(document.getElementById("condition").value);
@@ -34,12 +42,12 @@ export default function Sell() {
   };
 
   const clickSubmit = (e) => {
-    e.preventDefault();
     if (
       title === "" ||
       // picture_urls === [] ||
       condition === "" ||
       platform === "" ||
+      city === "" ||
       postal_code === ""
     ) {
       alert("Please complete the form!");
@@ -50,6 +58,7 @@ export default function Sell() {
       post.picture_urls = picture_urls;
       post.condition = condition;
       post.platform = platform;
+      post.city = city;
       post.postal_code = postal_code;
       post.description = description;
       post.status = "Selling";
@@ -93,107 +102,97 @@ export default function Sell() {
         <section className="suf-subscription">
           <div className="input-areas">
             <form>
-              {/* <input
-                type="file"
-                name="file"
-                placeholder="Update an image"
-                onChange={uploadImage}
-              /> */}
-              {showIcon && (
-                <label htmlFor="icon-button-file1" id="image-box-1">
-                  <Input
-                    accept="image/*"
-                    id="icon-button-file1"
-                    type="file"
-                    onChange={uploadImage}
-                  />
-                  <IconButton
-                    color="primary"
-                    aria-label="upload picture"
-                    component="span"
-                    id="icon-button-1"
+              <Stack spacing={2}>
+                {showIcon && (
+                  <label htmlFor="icon-button-file1" id="image-box-1">
+                    <Input
+                      accept="image/*"
+                      id="icon-button-file1"
+                      type="file"
+                      onChange={uploadImage}
+                    />
+                    <IconButton
+                      color="primary"
+                      aria-label="upload picture"
+                      component="span"
+                      id="icon-button-1"
+                    >
+                      <PhotoCamera id="image-icon-1" />
+                    </IconButton>
+                  </label>
+                )}
+                {loading ? (
+                  <h3>Loading...</h3>
+                ) : (
+                  <img src={image} id="image-1" />
+                )}
+                <TextField
+                  required
+                  id="title"
+                  label="Title"
+                  defaultValue=""
+                  onBlur={(e) => setTitle(e.target.value)}
+                />
+                <TextField
+                  required
+                  id="price"
+                  label="Price"
+                  type="number"
+                  onBlur={(e) => setPrice(e.target.value)}
+                />
+                <FormControl fullWidth>
+                  <InputLabel id="select-label-condition">Condition</InputLabel>
+                  <Select
+                    labelId="select-label-condition"
+                    id="condition"
+                    label="Condition"
+                    onChange={(e) => setCondition(e.target.value)}
                   >
-                    <PhotoCamera id="image-icon-1" />
-                  </IconButton>
-                </label>
-              )}
-              {loading ? <h3>Loading...</h3> : <img src={image} id="image-1"/>}
-            </form>
-            <form>
-              <input
-                className="suf-input-first"
-                id="title"
-                type="text"
-                placeholder="Title"
-                onBlur={() => {
-                  setTitle(document.getElementById("title").value);
-                }}
-              />
-            </form>
-            <form>
-              <input
-                className="suf-input-first"
-                id="price"
-                type="number"
-                min="0"
-                step="0.01"
-                placeholder="Price"
-                onBlur={() => {
-                  setPrice(document.getElementById("price").value);
-                }}
-              />
-            </form>
-            <form>
-              <select
-                className="suf-input-first"
-                id="condition"
-                onChange={conditionChange}
-              >
-                <option value="">Select condition</option>
-                <option value="Used">Used</option>
-                <option value="New">New</option>
-              </select>
-            </form>
-            <form>
-              <select
-                className="suf-input-first"
-                id="platform"
-                onChange={platformChange}
-              >
-                <option value="">Select platform</option>
-                <option value="PlayStation 5">PlayStation 5</option>
-                <option value="PlayStation 4">PlayStation 4</option>
-                <option value="Xbox Series X|S">Xbox Series X|S</option>
-                <option value="Xbox One">Xbox One</option>
-                <option value="Nintendo Switch">Nintendo Switch</option>
-              </select>
-            </form>
-            <form>
-              <input
-                className="suf-input-first"
-                id="postcal_code"
-                type="text"
-                placeholder="Postal Code"
-                onBlur={() => {
-                  setPostal_code(document.querySelector("#postcal_code").value);
-                }}
-              />
-            </form>
-            <form>
-              <input
-                className="suf-input-first"
-                id="description"
-                type="text"
-                placeholder="Description"
-                onBlur={() => {
-                  setDescription(document.querySelector("#description").value);
-                }}
-              />
-            </form>
-            <form>
-              <button className="suf-submit" onClick={clickSubmit}>
-                Create Post
-              </button>
+                    <MenuItem value="Used">Used</MenuItem>
+                    <MenuItem value="New">New</MenuItem>
+                  </Select>
+                </FormControl>
+                <FormControl fullWidth>
+                  <InputLabel id="select-label-platform">Platform</InputLabel>
+                  <Select
+                    labelId="select-label-platform"
+                    id="platform"
+                    label="Platform"
+                    onChange={(e) => setPlatform(e.target.value)}
+                  >
+                    <MenuItem value="PlayStation 5">PlayStation 5</MenuItem>
+                    <MenuItem value="PlayStation 4">PlayStation 4</MenuItem>
+                    <MenuItem value="Xbox Series X|S">Xbox Series X|S</MenuItem>
+                    <MenuItem value="Xbox One">Xbox One</MenuItem>
+                    <MenuItem value="Nintendo Switch">Nintendo Switch</MenuItem>
+                  </Select>
+                </FormControl>
+                <Autocomplete
+                  disablePortal
+                  id="city"
+                  options={cities}
+                  renderInput={(params) => (
+                    <TextField {...params} label="City" />
+                  )}
+                  onChange={(e) => setCity(e.target.innerText)}
+                />
+                <TextField
+                  required
+                  id="postcal_code"
+                  label="Postal Code"
+                  onBlur={(e) => setPostal_code(e.target.value)}
+                />
+                <TextField
+                  id="description"
+                  label="Description"
+                  multiline
+                  maxRows={4}
+                  onChange={(e) => setDescription(e.target.value)}
+                />
+                <Button variant="contained" onClick={clickSubmit}>
+                  Create Post
+                </Button>
+              </Stack>
             </form>
           </div>
         </section>
