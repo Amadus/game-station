@@ -46,6 +46,7 @@ export default function Games() {
     if (keyWord !== "") {
       filters.title = {};
       filters.title["$regex"] = keyWord;
+      filters.title["$options"] = "i";
     }
     filters.price = {};
     filters.price["$gte"] = priceFrom;
