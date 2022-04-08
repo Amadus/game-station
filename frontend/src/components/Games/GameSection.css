@@ -20,16 +20,16 @@
   display: flex;
   flex: 1;
   border-radius: 8px;
-  margin:0;
+  margin: 0;
 }
 
 .cards-item-link {
-  display:inline-block;
+  display: inline-block;
   padding-bottom: 15px;
   margin-left: 5px;
   margin-bottom: 30px;
   width: 250px;
-  background:#ffffff;
+  background: #ffffff;
   box-shadow: 0 6px 20px rgba(24, 53, 106, 0.17);
   border-radius: 8px;
   overflow: hidden;
@@ -44,19 +44,25 @@
   color: #252e48;
   font-size: 14px;
   line-height: 20px;
-  padding:0 0 3px 0;
+  padding: 0 0 3px 0;
   font-weight: normal;
 }
-
-@media only screen and (min-width: 600px) {
-  .content-blog-container {
-    width: 84%;
-  }
-}
-
 
 @media only screen and (max-width: 1024px) {
   .cards-item {
     margin-bottom: 2rem;
+  }
+}
+
+@media only screen and (max-width: 660px) {
+  .cards-items {
+    justify-content: center;
+  }
+
+  .cards-item {
+    display: flex;
+    flex: 0;
+    border-radius: 8px;
+    margin: 0;
   }
 }

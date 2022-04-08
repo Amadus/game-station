@@ -29,9 +29,6 @@ export default function Home() {
       setXboxGames(
         jsonData.filter((game) => game.platform.includes("Xbox")).slice(0, 8)
       );
-      setXboxGames(
-        jsonData.filter((game) => game.platform.includes("Xbox")).slice(0, 8)
-      );
       setNsGames(
         jsonData.filter((game) => game.platform.includes("Switch")).slice(0, 8)
       );
