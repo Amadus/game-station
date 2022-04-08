@@ -19,9 +19,8 @@ function LogoutButton(props) {
   };
 
   return (
-    <div>
-      <Button
-        id="basic-button"
+    <div className="nav-links" >
+      <Button id="dashboardButton"
         aria-controls={open ? 'basic-menu' : undefined}
         aria-haspopup="true"
         aria-expanded={open ? 'true' : undefined}
@@ -38,8 +37,8 @@ function LogoutButton(props) {
           'aria-labelledby': 'basic-button',
         }}
       >
-        <MenuItem onClick={handleProfileClose}>
-          <Link
+        <MenuItem onClick={handleProfileClose} >
+          <Link className="dashboardElements"
             to="/profile"
           >
             Profile
@@ -47,7 +46,8 @@ function LogoutButton(props) {
         </MenuItem>
         <MenuItem onClick={() => {
           logout({ returnTo: window.location.origin });
-        }}>Logout</MenuItem>
+        }}
+        >Logout</MenuItem>
       </Menu>
     </div>
 
