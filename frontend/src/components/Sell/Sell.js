@@ -47,7 +47,7 @@ export default function Sell() {
     checkUser();
   }, []);
 
-  const clickSubmit = (e) => {
+  const clickSubmit = () => {
     if (
       title === "" ||
       picture_urls.length === 0 ||
@@ -61,7 +61,6 @@ export default function Sell() {
       const post = {};
       post.title = title;
       post.price = price;
-      console.log(picture_urls);
       post.picture_urls = picture_urls;
       post.condition = condition;
       post.platform = platform;

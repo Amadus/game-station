@@ -1,10 +1,11 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { Grid, Divider, Avatar } from "@mui/material";
+import { Grid, Divider, Avatar, Button } from "@mui/material";
 import dateFormat from "dateformat";
 import "./GameDetails.css";
 import MapWidget from "../utils/MapWidget";
+import CommentSection from "./CommentSection";
 
 export default function GameDetails() {
   const gameId = useParams().gameId;
@@ -26,7 +27,7 @@ export default function GameDetails() {
         dateFormat(new Date(game.post_date), "dddd, mmmm dS, yyyy, h:MM:ss TT")
       );
       setSeller(game.seller);
-    };
+    }
     getGameData();
   }, []);
 
@@ -58,18 +59,26 @@ export default function GameDetails() {
         <p>
           <b>Platform:</b> {gameData.platform}
         </p>
-        <p>
+        <p className="postal">
           <b>Postal Code:</b> {gameData.postal_code}
         </p>
-        <br />
-        <Divider variant="large" />
         <MapWidget postal_code={gameData.postal_code} />
+        <br />
         <Divider variant="large" />
         <h3>Seller Information</h3>
         <Avatar src={seller?.avatar_url} id="seller-avatar" />
         <p id="seller-name">{seller?.user_name}</p>
         <Divider variant="large" />
+        <h3>Description</h3>
+        {gameData.description ? (
+          <p>{gameData.description}</p>
+        ) : (
+          <p>There is no description for this game.</p>
+        )}
+        <br />
+        <Divider variant="large" />
         <h3>Comments</h3>
+        <CommentSection gameData={gameData} seller={seller} />
       </Grid>
     </Grid>
   );

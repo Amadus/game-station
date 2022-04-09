@@ -20,7 +20,7 @@ exports.comment_create = (req, res, next) => {
   });
   comment.save((err) => {
     if (err) return next(err);
-    res.send("Comment created!");
+    res.json(comment);
   });
 };
 
