@@ -1,6 +1,28 @@
-.picture-area {
+#picture-area {
   width: 100%;
   height: 200px;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+#picture-link {
+  text-decoration: none;
+}
+
+#picture-area p {
+  width: 100%;
+  height: 200px;
+  text-align: center;
+  line-height: 200px;
+  color: white;
+  font-weight: bold;
+  font-size: 2rem;
+  letter-spacing: 0.2rem;
+}
+
+#picture-area p:hover {
+  background-color: rgba(0, 0, 0, 0.3);
+  transition: all 0.2s ease-out;
 }
 
 .game-title {

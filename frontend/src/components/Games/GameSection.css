@@ -25,9 +25,11 @@
 
 .cards-item-link {
   display: inline-block;
+  position:relative;
   padding-bottom: 15px;
   margin-left: 5px;
   margin-bottom: 30px;
+  padding-bottom: 3.7rem;
   width: 250px;
   background: #ffffff;
   box-shadow: 0 6px 20px rgba(24, 53, 106, 0.17);
@@ -37,15 +39,21 @@
 }
 
 .cards-item-info {
-  padding: 7px 15px 0 17px;
+  padding: 10px 15px 0 17px;
 }
 
 .cards-item-text {
   color: #252e48;
   font-size: 14px;
   line-height: 20px;
-  padding: 0 0 3px 0;
+  padding: 0 0 0 0;
   font-weight: normal;
+}
+
+#detail-button {
+  position: absolute;
+  width: 218px;
+  bottom: 1rem;
 }
 
 @media only screen and (max-width: 1024px) {
