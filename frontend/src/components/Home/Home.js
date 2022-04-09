@@ -8,12 +8,15 @@ import {
   faXbox,
 } from "@fortawesome/free-brands-svg-icons";
 import "./Home.css";
+import { useAuth0 } from "@auth0/auth0-react";
 
 export default function Home() {
   const [picks, setPicks] = useState([]);
   const [psGames, setPsGames] = useState([]);
   const [xboxGames, setXboxGames] = useState([]);
   const [nsGames, setNsGames] = useState([]);
+
+  const { isAuthenticated, user } = useAuth0();
 
   useEffect(() => {
     async function fetchGames() {
@@ -34,6 +37,23 @@ export default function Home() {
       );
     }
     fetchGames();
+  }, []);
+
+  useEffect(() => {
+    async function checkUser() {
+      if (isAuthenticated) {
+        const dbUser = {};
+        dbUser._id = user.sub.substring(user.sub.indexOf("|") + 1).padEnd(24, "0");
+        dbUser.user_name = user.name;
+        dbUser.avatar_url = user.picture;
+        await fetch("http://localhost:3030/user/createuser", {
+          method: "POST",
+          headers: { "Content-type": "application/json" },
+          body: JSON.stringify(dbUser)
+        });
+      }
+    };
+    checkUser();
   }, []);
 
   return (
