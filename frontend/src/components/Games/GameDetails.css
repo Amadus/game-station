@@ -36,7 +36,6 @@
 
 #seller-avatar {
   float: left;
-  display: inline-block;
 }
 
 #seller-name {
@@ -66,5 +65,10 @@
 
   #details-section {
     padding: 1.5rem 10% 1.5rem 10%;
+  }
+
+  #hd-image {
+    max-width: 100%;
+    max-height: 100%;
   }
 }
