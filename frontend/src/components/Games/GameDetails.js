@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { Grid, Divider, Avatar } from "@mui/material";
 import dateFormat from "dateformat";
 import "./GameDetails.css";
+import MapWidget from "../utils/MapWidget";
 
 export default function GameDetails() {
   const gameId = useParams().gameId;
@@ -12,18 +13,21 @@ export default function GameDetails() {
   const [date, setDate] = useState("");
   const [seller, setSeller] = useState({});
 
-  useEffect(async () => {
-    const data = await fetch(
-      `http://localhost:3030/post/getpostbyid/${gameId}`
-    );
-    const game = await data.json();
-    setGameData(game);
-    setGameUrl(game.picture_urls[0]);
-    console.log(game);
-    setDate(
-      dateFormat(new Date(game.post_date), "dddd, mmmm dS, yyyy, h:MM:ss TT")
-    );
-    setSeller(game.seller);
+  useEffect(() => {
+    async function getGameData() {
+      const data = await fetch(
+        `http://localhost:3030/post/getpostbyid/${gameId}`
+      );
+      const game = await data.json();
+      setGameData(game);
+      setGameUrl(game.picture_urls[0]);
+      console.log(game);
+      setDate(
+        dateFormat(new Date(game.post_date), "dddd, mmmm dS, yyyy, h:MM:ss TT")
+      );
+      setSeller(game.seller);
+    };
+    getGameData();
   }, []);
 
   return (
@@ -58,6 +62,8 @@ export default function GameDetails() {
           <b>Postal Code:</b> {gameData.postal_code}
         </p>
         <br />
+        <Divider variant="large" />
+        <MapWidget postal_code={gameData.postal_code} />
         <Divider variant="large" />
         <h3>Seller Information</h3>
         <Avatar src={seller?.avatar_url} id="seller-avatar" />

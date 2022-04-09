@@ -1,3 +1,8 @@
+google maps API key:
+AIzaSyACJI9eXF36yCDaHrIeDiVeGjaY0zPRKmg
+
+https://maps.googleapis.com/maps/api/geocode/json?sensor=false&address=V7C0A4&key=AIzaSyACJI9eXF36yCDaHrIeDiVeGjaY0zPRKmg
+
 样本数据可以在这个库里看:
 MONGODB_URI="mongodb+srv://muziyulin111:88888888@cluster0.lg3si.mongodb.net/game-station?retryWrites=true&w=majority"
 
