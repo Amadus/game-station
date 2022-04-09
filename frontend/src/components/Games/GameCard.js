@@ -31,7 +31,7 @@ export default function GameCard({ infor }) {
               <b>Postal Code:</b> {infor.postal_code}
             </p>
             <p className="cards-item-text">
-              <b>Price:</b> CA${infor.price}
+              <b>Price:</b> C${infor.price}
             </p>
             <Link to={`/games/${infor._id}`}>
               <Button variant="contained" id="detail-button">

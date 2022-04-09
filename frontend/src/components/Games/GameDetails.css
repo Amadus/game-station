@@ -1,0 +1,66 @@
+#picture-area-details {
+  height: calc(100vh - 80px);
+}
+
+.blur {
+  backdrop-filter: blur(20px);
+  height: calc(100vh - 80px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#hd-image {
+  max-width: 70%;
+  max-height: 70%;
+}
+
+#details-section {
+  padding: 1.5rem 2% 1.5rem 2%;
+  overflow-y: scroll;
+}
+
+#details-section h2 {
+  font-size: 1.3rem;
+}
+
+#details-section h3 {
+  font-size: 1.1rem;
+  margin: 0.5rem 0;
+}
+
+.little-text {
+  color: rgb(70, 70, 70);
+  font-size: 0.8rem;
+}
+
+#seller-avatar {
+  float: left;
+  display: inline-block;
+}
+
+#seller-name {
+  display: inline-block;
+  line-height: 40px;
+  margin: 0 0 1.5rem 1rem;
+}
+
+@media only screen and (min-width: 900px) {
+  #details-section {
+    height: calc(100vh - 80px);
+  }
+}
+
+@media only screen and (max-width: 900px) {
+  #picture-area-details {
+    height: 40vh;
+  }
+
+  .blur {
+    height: 40vh;
+  }
+
+  #details-section {
+    padding: 1.5rem 10% 1.5rem 10%;
+  }
+}
