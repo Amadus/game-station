@@ -35,7 +35,7 @@
 
 .nav-menu {
   display: grid;
-  grid-template-columns: repeat(5, auto);
+  grid-template-columns: repeat(4, auto);
   grid-gap: 10px;
   list-style: none;
   text-align: center;
@@ -88,6 +88,12 @@ button {
   font-size: 1.2rem;
 }
 
+#dashboardButton > img {
+  width: 20%;
+  height: auto;
+  border-radius: 100%;
+}
+
 .fa-bars {
   color: #fff;
 }
@@ -134,6 +140,8 @@ button {
     padding: 1rem;
     width: 70%;
     display: table;
+    font-size: 1.2rem !important;
+    color: #fff !important;
     border: 2px solid #fff;
     border-radius: 8px;
   }
