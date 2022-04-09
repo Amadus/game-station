@@ -58,12 +58,11 @@ export default function GameDetails() {
         <p>
           <b>Platform:</b> {gameData.platform}
         </p>
-        <p>
+        <p className ="postal">
           <b>Postal Code:</b> {gameData.postal_code}
         </p>
-        <br />
-        <Divider variant="large" />
         <MapWidget postal_code={gameData.postal_code} />
+        <br />
         <Divider variant="large" />
         <h3>Seller Information</h3>
         <Avatar src={seller?.avatar_url} id="seller-avatar" />
