@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Sell.css";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useNavigate } from "react-router-dom";
@@ -15,7 +15,7 @@ import Autocomplete from "@mui/material/Autocomplete";
 import { cities } from "./Sell.constant";
 
 export default function Sell() {
-  const { user } = useAuth0();
+  const { user, isAuthenticated } = useAuth0();
   const seller = user.sub.substring(user.sub.indexOf("|") + 1).padEnd(24, "0");
 
   const navigate = useNavigate();
@@ -29,6 +29,23 @@ export default function Sell() {
   const [postal_code, setPostal_code] = useState("");
   const [description, setDescription] = useState("");
   const [image, setImage] = useState("");
+
+  useEffect(() => {
+    async function checkUser() {
+      if (isAuthenticated) {
+        const dbUser = {};
+        dbUser._id = user.sub.substring(user.sub.indexOf("|") + 1).padEnd(24, "0");
+        dbUser.user_name = user.name;
+        dbUser.avatar_url = user.picture;
+        await fetch("http://localhost:3030/user/createuser", {
+          method: "POST",
+          headers: { "Content-type": "application/json" },
+          body: JSON.stringify(dbUser)
+        });
+      }
+    };
+    checkUser();
+  }, []);
 
   const clickSubmit = (e) => {
     if (
