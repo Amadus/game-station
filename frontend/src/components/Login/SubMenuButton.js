@@ -1,12 +1,13 @@
 import React from "react";
 import { useAuth0 } from "@auth0/auth0-react";
-import "./Navbar.css";
-import { Link } from "react-router-dom";
+import "../Navbar.css";
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
+import ProfileButton from "../Profile/ProfileButton";
+import LogoutButton from "./LogoutButton";
 
-function LogoutButton(props) {
+function SubMenuButton(props) {
 
   const { logout } = useAuth0();
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -17,6 +18,7 @@ function LogoutButton(props) {
   const handleProfileClose = () => {
     setAnchorEl(null);
   };
+  const { user } = useAuth0();
 
   return (
     <div className="nav-links" >
@@ -26,32 +28,22 @@ function LogoutButton(props) {
         aria-expanded={open ? 'true' : undefined}
         onClick={handleProfileClick}
       >
-        Dashboard
+        <img src={user.picture} alt="Avatar" />
       </Button>
       <Menu
         id="basic-menu"
         anchorEl={anchorEl}
         open={open}
-        onClose={handleProfileClose}
         MenuListProps={{
           'aria-labelledby': 'basic-button',
         }}
       >
-        <MenuItem onClick={handleProfileClose} >
-          <Link className="dashboardElements"
-            to="/profile"
-          >
-            Profile
-          </Link>
-        </MenuItem>
-        <MenuItem onClick={() => {
-          logout({ returnTo: window.location.origin });
-        }}
-        >Logout</MenuItem>
+        <ProfileButton />
+        <LogoutButton />
       </Menu>
     </div>
 
   );
 }
 
-export default LogoutButton;
+export default SubMenuButton;
