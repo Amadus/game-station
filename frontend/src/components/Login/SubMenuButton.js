@@ -27,6 +27,7 @@ function SubMenuButton(props) {
         aria-haspopup="true"
         aria-expanded={open ? 'true' : undefined}
         onClick={handleProfileClick}
+        onClose={handleProfileClose}
       >
         <img src={user.picture} alt="Avatar" />
       </Button>
@@ -37,6 +38,8 @@ function SubMenuButton(props) {
         MenuListProps={{
           'aria-labelledby': 'basic-button',
         }}
+
+        onClose={handleProfileClose}
       >
         <ProfileButton />
         <LogoutButton />
