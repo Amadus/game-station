@@ -1,18 +1,26 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import "./Navbar.css";
-import LoginButton from "./LoginButton";
-import LogoutButton from "./LogoutButton";
+import LoginButton from "./Login/LoginButton";
+import LogoutButton from "./Login/LogoutButton";
+import SubMenuButton from "./Login/SubMenuButton";
+import ProfileButton from "./Profile/ProfileButton";
 
 function Navbar() {
   const [click, setClick] = useState(false);
   const { isAuthenticated } = useAuth0();
-
+  const [screenWidth, setScreenWidth] = useState(window.innerWidth);
   const handleClick = () => setClick(!click);
+  const { logout } = useAuth0();
   const closeMobileMenu = () => {
     setClick(false);
   };
+
+  useEffect(() => {
+    const changeWidth = () => { setScreenWidth(window.innerWidth) };
+    window.addEventListener("resize", changeWidth);
+  })
 
   return (
     <>
@@ -47,9 +55,22 @@ function Navbar() {
                 Sell
               </Link>
             </li>
-            <li className="nav-item">
-              {isAuthenticated ? <LogoutButton /> : <LoginButton />}
-            </li>
+
+            {(screenWidth >= 960) && (isAuthenticated ? <li className="nav-item"><SubMenuButton /></li> : <li className="nav-item"> <LoginButton /></li>)}
+            {(screenWidth < 960) && (isAuthenticated ?
+              <>
+                <Link to="/profile" className="nav-links" onClick={closeMobileMenu}>
+                  Profile
+                </Link>
+                <li className="nav-links" onClick={() => {
+                  logout({ returnTo: window.location.origin });
+                }}>
+                  Logout
+                </li>
+              </>
+              :
+              <li className="nav-item"><LoginButton /></li>)}
+
           </ul>
         </div>
       </nav>
