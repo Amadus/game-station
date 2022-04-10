@@ -8,11 +8,18 @@ MONGODB_URI="mongodb+srv://muziyulin111:88888888@cluster0.lg3si.mongodb.net/game
 
 用户登录之后，可以通过sub取到user的id，我们数据库里user表保持和auth0的id一致
 这是auth0可以得到的用户信息，下面这个例子，user的id取624868954a79520069d97376，
-如果是google登录的，sub: "google-oauth2|103038299971966987559"，后面只有21位，要补足24位，补0即可。
+如果是google登录的，sub: "google-oauth2|103038299971966987559"，超过24位取前24位，不够24位补0。
 代码写法:
-  const { user } = useAuth0();
-  const index = user.sub.indexOf("|");
-  const seller = user.sub.substring(index + 1).padEnd(24, "0");
+  const { user, isAuthenticated } = useAuth0();
+  let currentUserId = "";
+  if (isAuthenticated) {
+    currentUserId = user.sub.substring(user.sub.indexOf("|") + 1);
+    if (currentUserId.length > 24) {
+      currentUserId = currentUserId.substring(0, 24);
+    } else {
+      currentUserId = currentUserId.padEnd(24, "0");
+    }
+  }
 
 {
   "nickname": "790494168",
@@ -26,9 +33,9 @@ MONGODB_URI="mongodb+srv://muziyulin111:88888888@cluster0.lg3si.mongodb.net/game
 
 API 规范，开发进度:
 
-/post/createpost POST -- 已完成
+/post POST -- 已完成
 用户新建一个post，注意seller是user的id
-http://localhost:3030/post/createpost
+http://localhost:3030/post
 {
     "title": "Elden Ring Xbox version used only for 3 months",
     "price": 70,
@@ -45,9 +52,9 @@ http://localhost:3030/post/createpost
     "seller": "624785107d3ff9cfba36ee85" // 可以通过auth0获取
 }
 
-/post/updatepost POST -- 已完成
+/post PUT -- 已完成
 用户修改一个post，主要用于修改price和status等信息，注意seller是user的id
-http://localhost:3030/post/updatepost
+http://localhost:3030/post/6247a57e4ef0983b2768812a
 {
     "_id": "6247a57e4ef0983b2768812a",
     "title": "Monster Hunter World, Xbox version used only for 3 months",
@@ -65,16 +72,13 @@ http://localhost:3030/post/updatepost
     "seller": "624785107d3ff9cfba36ee85"
 }
 
-/post/deletepost DELETE -- 已完成
+/post/:id DELETE -- 已完成
 用户删除一个post，只需要传_id
-http://localhost:3030/post/deletepost
-{
-    "_id": "6247a57e4ef0983b2768812a"
-}
+http://localhost:3030/post/:id
 
-/post/getpostbyid/:id GET  -- 已完成
+/post/:id GET  -- 已完成
 获取一个post的详情，会自动把seller的id替换成对应的user
-http://localhost:3030/post/getpostbyid/6247a3f84ef0983b27688128
+http://localhost:3030/post/6247a3f84ef0983b27688128
 返回信息:
 {
   "_id": "6247a3f84ef0983b27688128",
@@ -100,9 +104,9 @@ http://localhost:3030/post/getpostbyid/6247a3f84ef0983b27688128
 }
 
 
-/post/getallposts GET -- 已完成
+/post/all GET -- 已完成
 获取所有的posts
-http://localhost:3030/post/getallposts
+http://localhost:3030/post/all
 返回信息:
 [
   {
@@ -202,9 +206,9 @@ http://localhost:3030/post/getallposts
 }
 
 
-/comment/createcomment POST -- 已完成
+/comment POST -- 已完成
 用户增加一条评论
-http://localhost:3030/comment/createcomment
+http://localhost:3030/comment
 {
     "user": "624785107d3ff9cfba36ee85",
     "post": "6247d1f3996e79fd8a1bae0e",
@@ -212,7 +216,7 @@ http://localhost:3030/comment/createcomment
 }
 
 
-/comment/getcommentsbypostid/:post_id GET -- 已完成
+/comment/bypostid/:post_id GET -- 已完成
 根据postid获得所有comments，供详情页面展示，按照最近的在最前面的顺序
 [
   {
@@ -243,26 +247,26 @@ http://localhost:3030/comment/createcomment
   }
 ]
 
-/user/createuser POST -- 已完成
+/user POST -- 已完成
 创建一个用户，_id取auth0里的
-http://localhost:3030/user/createuser
+http://localhost:3030/user/
 {
     "_id": "624868954a79520069d97376",
     "user_name": "Peter",
     "avatar_url": "https://s.gravatar.com/avatar/f4139221fa7c156aaf3860b22519307a?s=480&r=pg&d=https%3A%2F%2Fcdn.auth0.com%2Favatars%2F79.png"
 }
 
-/user/updateuser POST -- 已完成
+/user/:id PUT -- 已完成
 修改一个用户，用于更换头像。会根据当前id查找这个用户，然后更新其他字段，user_name本身不能更新。
-http://localhost:3030/user/updateuser
+http://localhost:3030/user/:id
 {
     "_id": "624785107d3ff9cfba36ee85",
     "user_name": "Amadus",
     "avatar_url": "Another url"
 }
 
-/user/getuserbyname/:user_name GET -- 已完成
-/user/getuserbyid/:id GET -- 已完成
+/user/byname/:user_name GET -- 已完成
+/user/:id GET -- 已完成
 获得用户的信息
 返回的信息:
 {

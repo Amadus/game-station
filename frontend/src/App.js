@@ -9,6 +9,7 @@ import Sell from "./components/Sell/Sell";
 import Profile from "./components/Profile/Profile";
 import { useAuth0 } from "@auth0/auth0-react";
 import ProtectedRoute from "./components/ProtectedRoute";
+import GameEdit from "./components/Sell/GameEdit";
 
 function App() {
   const { isLoading } = useAuth0();
@@ -16,7 +17,7 @@ function App() {
   return (
     <>
       {isLoading ? (
-        <img src="images/loading.svg" alt="Loading" />
+        <img src="/images/loading.svg" alt="Loading" />
       ) : (
         <>
           <Navbar />
@@ -24,6 +25,7 @@ function App() {
             <Route path="/" exact element={<Home />} />
             <Route path="/games" exact element={<Games />} />
             <Route path="/games/:gameId" exact element={<GameDetails />} />
+            <Route path="/gameedit/:gameId" exact element={<GameEdit />} />
             <Route
               path="/sell"
               exact

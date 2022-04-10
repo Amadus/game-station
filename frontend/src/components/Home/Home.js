@@ -20,20 +20,25 @@ export default function Home() {
 
   useEffect(() => {
     async function fetchGames() {
-      const data = await fetch("http://localhost:3030/post/getallposts");
+      const data = await fetch("http://localhost:3030/post/all");
       const jsonData = await data.json();
       console.log(jsonData);
-      setPicks(jsonData.slice(0, 8));
+      const sellingGames = jsonData.filter((game) => game.status === "Selling");
+      setPicks(sellingGames.slice(0, 8));
       setPsGames(
-        jsonData
+        sellingGames
           .filter((game) => game.platform.includes("PlayStation"))
           .slice(0, 8)
       );
       setXboxGames(
-        jsonData.filter((game) => game.platform.includes("Xbox")).slice(0, 8)
+        sellingGames
+          .filter((game) => game.platform.includes("Xbox"))
+          .slice(0, 8)
       );
       setNsGames(
-        jsonData.filter((game) => game.platform.includes("Switch")).slice(0, 8)
+        sellingGames
+          .filter((game) => game.platform.includes("Switch"))
+          .slice(0, 8)
       );
     }
     fetchGames();
@@ -43,16 +48,22 @@ export default function Home() {
     async function checkUser() {
       if (isAuthenticated) {
         const dbUser = {};
-        dbUser._id = user.sub.substring(user.sub.indexOf("|") + 1).padEnd(24, "0");
+        let currentUserId = user.sub.substring(user.sub.indexOf("|") + 1);
+        if (currentUserId.length > 24) {
+          currentUserId = currentUserId.substring(0, 24);
+        } else {
+          currentUserId = currentUserId.padEnd(24, "0");
+        }
+        dbUser._id = currentUserId;
         dbUser.user_name = user.name;
         dbUser.avatar_url = user.picture;
-        await fetch("http://localhost:3030/user/createuser", {
+        await fetch("http://localhost:3030/user", {
           method: "POST",
           headers: { "Content-type": "application/json" },
-          body: JSON.stringify(dbUser)
+          body: JSON.stringify(dbUser),
         });
       }
-    };
+    }
     checkUser();
   }, []);
 
