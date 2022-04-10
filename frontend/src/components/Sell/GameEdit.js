@@ -32,7 +32,7 @@ export default function GameEdit() {
 
   const getGameData = async function () {
     const data = await fetch(
-      `http://localhost:3030/post/getpostbyid/${gameId}`
+      `http://localhost:3030/post/${gameId}`
     );
     const game = await data.json();
     setGameData(game);

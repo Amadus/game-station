@@ -15,12 +15,15 @@ export default function GameDetails() {
   const [date, setDate] = useState("");
   const [seller, setSeller] = useState({});
 
-  const { user } = useAuth0();
-  let currentUserId = user.sub.substring(user.sub.indexOf("|") + 1);
-  if (currentUserId.length > 24) {
-    currentUserId = currentUserId.substring(0, 24);
-  } else {
-    currentUserId = currentUserId.padEnd(24, "0");
+  const { user, isAuthenticated } = useAuth0();
+  let currentUserId = "";
+  if (isAuthenticated) {
+    currentUserId = user.sub.substring(user.sub.indexOf("|") + 1);
+    if (currentUserId.length > 24) {
+      currentUserId = currentUserId.substring(0, 24);
+    } else {
+      currentUserId = currentUserId.padEnd(24, "0");
+    }
   }
 
   const navigate = useNavigate();
@@ -30,9 +33,7 @@ export default function GameDetails() {
   }, []);
 
   const getGameData = async function () {
-    const data = await fetch(
-      `http://localhost:3030/post/getpostbyid/${gameId}`
-    );
+    const data = await fetch(`http://localhost:3030/post/${gameId}`);
     const game = await data.json();
     setGameData(game);
     setGameUrl(game.picture_urls[0]);
