@@ -64,7 +64,7 @@ export default function GameDetails() {
 
   const handleEdit = function () {
     navigate(`/gameedit/${gameData._id}`);
-  }
+  };
 
   return (
     <Grid container className="game-details-page">
@@ -87,21 +87,31 @@ export default function GameDetails() {
         <p className="little-text">{date}</p>
         <br />
         {gameData && gameData.seller && currentUserId === gameData.seller._id && (
-          <Stack direction="row" spacing={1}>
-            {gameData.status === "Selling" ? (
-              <Button variant="contained" onClick={() => markStatus("Sold")}>
-                Mark Sold
+          <>
+            <Stack direction="row" spacing={1}>
+              {gameData.status === "Selling" ? (
+                <Button variant="contained" onClick={() => markStatus("Sold")}>
+                  Mark Sold
+                </Button>
+              ) : (
+                <Button
+                  variant="contained"
+                  onClick={() => markStatus("Selling")}
+                >
+                  Mark Selling
+                </Button>
+              )}
+              <Button variant="contained" onClick={handleEdit}>
+                Edit
               </Button>
-            ) : (
-              <Button variant="contained" onClick={() => markStatus("Selling")}>
-                Mark Selling
+              <Button variant="contained" onClick={handleDelete}>
+                Delete
               </Button>
-            )}
-            <Button variant="contained" onClick={handleEdit}>Edit</Button>
-            <Button variant="contained" onClick={handleDelete}>Delete</Button>
-          </Stack>
+            </Stack>
+            <br />
+          </>
         )}
-        <br />
+        <Divider variant="large" />
         <h3>Details</h3>
         <p>
           <b>Condition:</b> {gameData.condition}
