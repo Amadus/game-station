@@ -104,9 +104,9 @@ http://localhost:3030/post/getpostbyid/6247a3f84ef0983b27688128
 }
 
 
-/post/getallposts GET -- 已完成
+/post/all GET -- 已完成
 获取所有的posts
-http://localhost:3030/post/getallposts
+http://localhost:3030/post/all
 返回信息:
 [
   {
@@ -206,9 +206,9 @@ http://localhost:3030/post/getallposts
 }
 
 
-/comment/createcomment POST -- 已完成
+/comment POST -- 已完成
 用户增加一条评论
-http://localhost:3030/comment/createcomment
+http://localhost:3030/comment
 {
     "user": "624785107d3ff9cfba36ee85",
     "post": "6247d1f3996e79fd8a1bae0e",
@@ -216,7 +216,7 @@ http://localhost:3030/comment/createcomment
 }
 
 
-/comment/getcommentsbypostid/:post_id GET -- 已完成
+/comment/bypostid/:post_id GET -- 已完成
 根据postid获得所有comments，供详情页面展示，按照最近的在最前面的顺序
 [
   {

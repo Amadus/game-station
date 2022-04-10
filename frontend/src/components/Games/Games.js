@@ -28,7 +28,7 @@ export default function Games() {
 
   useEffect(() => {
     async function fetchGames() {
-      const data = await fetch("http://localhost:3030/post/getallposts");
+      const data = await fetch("http://localhost:3030/post/all");
       const jsonData = await data.json();
       setGames(jsonData.filter((game) => game.status === "Selling"));
     }
@@ -70,7 +70,7 @@ export default function Games() {
       body: JSON.stringify(data),
     });
     const resJson = await res.json();
-    
+
     setGames(resJson.filter((game) => game.status === "Selling"));
   };
 

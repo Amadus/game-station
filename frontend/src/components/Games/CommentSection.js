@@ -19,11 +19,11 @@ export default function CommentSection({ gameData, seller }) {
   } else {
     currentUserId = currentUserId.padEnd(24, "0");
   }
-  
+
   useEffect(() => {
     async function getCommentsData() {
       const data = await fetch(
-        `http://localhost:3030/comment/getcommentsbypostid/${gameId}`
+        `http://localhost:3030/comment/bypostid/${gameId}`
       );
       const comments = await data.json();
       setCommentsData(comments);
@@ -44,7 +44,7 @@ export default function CommentSection({ gameData, seller }) {
       post.post = gameData._id;
       post.content = commentText;
 
-      const data = await fetch("http://localhost:3030/comment/createcomment", {
+      const data = await fetch("http://localhost:3030/comment", {
         method: "POST",
         headers: { "Content-type": "application/json" },
         body: JSON.stringify(post),
