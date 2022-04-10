@@ -256,9 +256,9 @@ http://localhost:3030/user/
     "avatar_url": "https://s.gravatar.com/avatar/f4139221fa7c156aaf3860b22519307a?s=480&r=pg&d=https%3A%2F%2Fcdn.auth0.com%2Favatars%2F79.png"
 }
 
-/user/updateuser POST -- 已完成
+/user/:id PUT -- 已完成
 修改一个用户，用于更换头像。会根据当前id查找这个用户，然后更新其他字段，user_name本身不能更新。
-http://localhost:3030/user/updateuser
+http://localhost:3030/user/:id
 {
     "_id": "624785107d3ff9cfba36ee85",
     "user_name": "Amadus",
