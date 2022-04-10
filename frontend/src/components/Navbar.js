@@ -22,6 +22,7 @@ function Navbar() {
     window.addEventListener("resize", changeWidth);
   })
 
+
   return (
     <>
       <nav className="navbar">

@@ -1,4 +1,5 @@
 import React from "react";
+import { useEffect, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import "../Navbar.css";
 import Button from '@mui/material/Button';
@@ -11,14 +12,31 @@ function SubMenuButton(props) {
 
   const { logout } = useAuth0();
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const { user } = useAuth0();
   const open = Boolean(anchorEl);
+  const [avatar, setAvatar] = useState("");
   const handleProfileClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
   const handleProfileClose = () => {
     setAnchorEl(null);
   };
-  const { user } = useAuth0();
+
+  useEffect(() => {
+    getUserAvatar();
+  }, []);
+
+  const getUserAvatar = async function () {
+    const index = user.sub.indexOf("|");
+    const userId = user.sub.substring(index + 1).padEnd(24, "0");
+    const userInfo = await fetch(`http://localhost:3030/user/${userId}`);
+    const userData = await userInfo.json();
+    console.log(userInfo);
+    console.log(userData);
+    const url = await userData.avatar_url;
+    setAvatar(url);
+  };
+
 
   return (
     <div className="nav-links" >
@@ -29,7 +47,7 @@ function SubMenuButton(props) {
         onClick={handleProfileClick}
         onClose={handleProfileClose}
       >
-        <img src={user.picture} alt="Avatar" />
+        <img src={avatar} alt="Avatar" />
       </Button>
       <Menu
         id="basic-menu"

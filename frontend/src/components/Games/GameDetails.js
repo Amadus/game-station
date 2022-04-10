@@ -37,7 +37,6 @@ export default function GameDetails() {
     const game = await data.json();
     setGameData(game);
     setGameUrl(game.picture_urls[0]);
-    console.log(game);
     setDate(
       dateFormat(new Date(game.post_date), "dddd, mmmm dS, yyyy, h:MM:ss TT")
     );

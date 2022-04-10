@@ -32,6 +32,7 @@ export default function Profile() {
   const [games, setGames] = useState([]);
   const [image, setImage] = useState('');
   const [loading, setLoading] = useState(false);
+  const [avatar, setAvatar] = useState("");
 
   useEffect(() => {
     async function getUserPosts() {
@@ -54,12 +55,26 @@ export default function Profile() {
     getUserPosts();
   }, []);
 
+  const getUserAvatar = async function () {
+    const index = user.sub.indexOf("|");
+    const userId = user.sub.substring(index + 1).padEnd(24, "0");
+    const userInfo = await fetch(`http://localhost:3030/user/${userId}`);
+    const userData = await userInfo.json();
+    console.log(userInfo);
+    console.log(userData);
+    const url = await userData.avatar_url;
+    setAvatar(url);
+  };
+
+  useEffect(() => getUserAvatar(), [avatar]);
+
   const uploadImage = async e => {
     const files = e.target.files;
     const data = new FormData();
     data.append("file", files[0]);
     data.append("upload_preset", "gamestation");
     setLoading(true);
+
     const res = await fetch(
       "https://api.cloudinary.com/v1_1/drextjznd/image/upload",
       {
@@ -69,10 +84,23 @@ export default function Profile() {
     );
     const file = await res.json();
     setImage(file.secure_url);
-    console.log(file.secure_url);
-    setLoading(false);
-  }
 
+    const updateData = {};
+    const index = user.sub.indexOf("|");
+    const userId = user.sub.substring(index + 1).padEnd(24, "0");
+    updateData.avatar_url = file.secure_url;
+    updateData.user_name = 'knight';
+    updateData._id = userId;
+
+    fetch(`http://localhost:3030/user/${userId}`, {
+      method: "PUT",
+      headers: { "Content-type": "application/json" },
+      body: JSON.stringify(updateData),
+    });
+
+    setLoading(false);
+
+  }
 
 
 
@@ -83,7 +111,7 @@ export default function Profile() {
         <Grid item sm={12} md={2}>
           <Grid item>
             <ButtonBase sx={{ width: 128, height: 128 }}>
-              <Img src={user.picture} alt="Avatar" />
+              <Img src={avatar} alt="Avatar" />
             </ButtonBase>
           </Grid>
           <Grid item xs={12} sm container>
