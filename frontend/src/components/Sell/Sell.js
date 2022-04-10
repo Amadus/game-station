@@ -81,7 +81,7 @@ export default function Sell() {
       post.status = "Selling";
       post.seller = seller;
 
-      fetch("http://localhost:3030/post/createpost", {
+      fetch("http://localhost:3030/post", {
         method: "POST",
         headers: { "Content-type": "application/json" },
         body: JSON.stringify(post),
