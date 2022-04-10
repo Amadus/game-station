@@ -51,7 +51,7 @@ http://localhost:3030/post
 
 /post PUT -- 已完成
 用户修改一个post，主要用于修改price和status等信息，注意seller是user的id
-http://localhost:3030/post/updatepost
+http://localhost:3030/post
 {
     "_id": "6247a57e4ef0983b2768812a",
     "title": "Monster Hunter World, Xbox version used only for 3 months",
@@ -69,12 +69,9 @@ http://localhost:3030/post/updatepost
     "seller": "624785107d3ff9cfba36ee85"
 }
 
-/post/deletepost DELETE -- 已完成
+/post/:id DELETE -- 已完成
 用户删除一个post，只需要传_id
-http://localhost:3030/post/deletepost
-{
-    "_id": "6247a57e4ef0983b2768812a"
-}
+http://localhost:3030/post/:id
 
 /post/getpostbyid/:id GET  -- 已完成
 获取一个post的详情，会自动把seller的id替换成对应的user

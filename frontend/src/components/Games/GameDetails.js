@@ -55,12 +55,8 @@ export default function GameDetails() {
   };
 
   const handleDelete = async function () {
-    const data = {};
-    data._id = gameData._id;
-    await fetch("http://localhost:3030/post/deletepost", {
+    await fetch(`http://localhost:3030/post/${gameData._id}`, {
       method: "DELETE",
-      headers: { "Content-type": "application/json" },
-      body: JSON.stringify(data),
     });
     navigate("/profile");
   };

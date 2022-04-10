@@ -84,7 +84,7 @@ exports.post_update = [
 ];
 
 exports.post_delete = (req, res, next) => {
-  Post.findById(req.body._id).exec((err, found_post) => {
+  Post.findById(req.params.id).exec((err, found_post) => {
     if (err) return next(err);
     if (!found_post) {
       res.send("Post not found!");
@@ -92,7 +92,7 @@ exports.post_delete = (req, res, next) => {
     }
     Comment.deleteMany({ post: found_post._id }).exec((err) => {
       if (err) return next(err);
-      Post.findByIdAndRemove(req.body._id, (err) => {
+      Post.findByIdAndRemove(req.params.id, (err) => {
         if (err) return next(err);
         res.send("Post deleted!");
         return;
