@@ -1,13 +1,14 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import { styled } from '@mui/material/styles';
+import { Grid, Divider } from "@mui/material";
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
-import Grid from '@mui/material/Grid';
 import { useAuth0 } from "@auth0/auth0-react";
 import Typography from '@mui/material/Typography';
 import ButtonBase from '@mui/material/ButtonBase';
-import GameSection from '../Games/GameSection'
+import GameSection from '../Games/GameSection';
+import "./Profile.css";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -77,9 +78,10 @@ export default function Profile() {
           </Grid>
         </Grid>
 
-        <Grid item sm={12} md={10}>
-          Your Items
-          <GameSection games={games} />
+        <Grid item sm={12} md={10} id="user-items">
+          <h2>Your Items</h2>
+          <Divider variant="large" />
+          <GameSection id="items-list" games={games} />
         </Grid>
       </Grid>
 

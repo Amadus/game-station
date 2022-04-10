@@ -1,0 +1,14 @@
+#user-items {
+    padding: 1.5rem 2% 1.5rem 2%;
+    overflow-y: scroll;
+}
+
+#user-items h2 {
+    font-size: 1.3rem;
+    margin-bottom: 0.5rem;
+}
+
+#items-list {
+    font-size: 1.1rem;
+    margin: 0.5rem 0;
+}
