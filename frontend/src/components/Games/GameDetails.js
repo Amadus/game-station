@@ -16,9 +16,12 @@ export default function GameDetails() {
   const [seller, setSeller] = useState({});
 
   const { user } = useAuth0();
-  const currentUserId = user.sub
-    .substring(user.sub.indexOf("|") + 1)
-    .padEnd(24, "0");
+  let currentUserId = user.sub.substring(user.sub.indexOf("|") + 1);
+  if (currentUserId.length > 24) {
+    currentUserId = currentUserId.substring(0, 24);
+  } else {
+    currentUserId = currentUserId.padEnd(24, "0");
+  }
 
   const navigate = useNavigate();
 

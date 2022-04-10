@@ -31,10 +31,14 @@ export default function Home() {
           .slice(0, 8)
       );
       setXboxGames(
-        sellingGames.filter((game) => game.platform.includes("Xbox")).slice(0, 8)
+        sellingGames
+          .filter((game) => game.platform.includes("Xbox"))
+          .slice(0, 8)
       );
       setNsGames(
-        sellingGames.filter((game) => game.platform.includes("Switch")).slice(0, 8)
+        sellingGames
+          .filter((game) => game.platform.includes("Switch"))
+          .slice(0, 8)
       );
     }
     fetchGames();
@@ -44,16 +48,22 @@ export default function Home() {
     async function checkUser() {
       if (isAuthenticated) {
         const dbUser = {};
-        dbUser._id = user.sub.substring(user.sub.indexOf("|") + 1).padEnd(24, "0");
+        let currentUserId = user.sub.substring(user.sub.indexOf("|") + 1);
+        if (currentUserId.length > 24) {
+          currentUserId = currentUserId.substring(0, 24);
+        } else {
+          currentUserId = currentUserId.padEnd(24, "0");
+        }
+        dbUser._id = currentUserId;
         dbUser.user_name = user.name;
         dbUser.avatar_url = user.picture;
         await fetch("http://localhost:3030/user/createuser", {
           method: "POST",
           headers: { "Content-type": "application/json" },
-          body: JSON.stringify(dbUser)
+          body: JSON.stringify(dbUser),
         });
       }
-    };
+    }
     checkUser();
   }, []);
 

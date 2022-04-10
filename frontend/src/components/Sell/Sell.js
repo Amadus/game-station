@@ -16,7 +16,12 @@ import { cities } from "./Sell.constant";
 
 export default function Sell() {
   const { user, isAuthenticated } = useAuth0();
-  const seller = user.sub.substring(user.sub.indexOf("|") + 1).padEnd(24, "0");
+  let seller = user.sub.substring(user.sub.indexOf("|") + 1);
+  if (seller.length > 24) {
+    seller = seller.substring(0, 24);
+  } else {
+    seller = seller.padEnd(24, "0");
+  }
 
   const navigate = useNavigate();
 
@@ -34,16 +39,22 @@ export default function Sell() {
     async function checkUser() {
       if (isAuthenticated) {
         const dbUser = {};
-        dbUser._id = user.sub.substring(user.sub.indexOf("|") + 1).padEnd(24, "0");
+        let currentUserId = user.sub.substring(user.sub.indexOf("|") + 1);
+        if (currentUserId.length > 24) {
+          currentUserId = currentUserId.substring(0, 24);
+        } else {
+          currentUserId = currentUserId.padEnd(24, "0");
+        }
+        dbUser._id = currentUserId;
         dbUser.user_name = user.name;
         dbUser.avatar_url = user.picture;
         await fetch("http://localhost:3030/user/createuser", {
           method: "POST",
           headers: { "Content-type": "application/json" },
-          body: JSON.stringify(dbUser)
+          body: JSON.stringify(dbUser),
         });
       }
-    };
+    }
     checkUser();
   }, []);
 
@@ -124,7 +135,7 @@ export default function Sell() {
                     {!image ? (
                       <PhotoCamera id="image-icon-1" />
                     ) : (
-                        <img src={image} alt="image" id="image-1"/>
+                      <img src={image} alt="image" id="image-1" />
                     )}
                   </IconButton>
                 </label>

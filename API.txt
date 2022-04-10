@@ -8,11 +8,15 @@ MONGODB_URI="mongodb+srv://muziyulin111:88888888@cluster0.lg3si.mongodb.net/game
 
 用户登录之后，可以通过sub取到user的id，我们数据库里user表保持和auth0的id一致
 这是auth0可以得到的用户信息，下面这个例子，user的id取624868954a79520069d97376，
-如果是google登录的，sub: "google-oauth2|103038299971966987559"，后面只有21位，要补足24位，补0即可。
+如果是google登录的，sub: "google-oauth2|103038299971966987559"，超过24位取前24位，不够24位补0。
 代码写法:
   const { user } = useAuth0();
-  const index = user.sub.indexOf("|");
-  const seller = user.sub.substring(index + 1).padEnd(24, "0");
+  let currentUserId = user.sub.substring(user.sub.indexOf("|") + 1);
+  if (currentUserId.length > 24) {
+    currentUserId = currentUserId.substring(0, 24);
+  } else {
+    currentUserId = currentUserId.padEnd(24, "0");
+  }
 
 {
   "nickname": "790494168",

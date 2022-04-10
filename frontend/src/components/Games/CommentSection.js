@@ -13,6 +13,13 @@ export default function CommentSection({ gameData, seller }) {
   const [commentText, setCommentText] = useState("");
   const [commentsData, setCommentsData] = useState([]);
 
+  let currentUserId = user.sub.substring(user.sub.indexOf("|") + 1);
+  if (currentUserId.length > 24) {
+    currentUserId = currentUserId.substring(0, 24);
+  } else {
+    currentUserId = currentUserId.padEnd(24, "0");
+  }
+  
   useEffect(() => {
     async function getCommentsData() {
       const data = await fetch(
@@ -33,9 +40,7 @@ export default function CommentSection({ gameData, seller }) {
       alert("Please write a comment!");
     } else {
       const post = {};
-      post.user = user.sub
-        .substring(user.sub.indexOf("|") + 1)
-        .padEnd(24, "0");
+      post.user = currentUserId;
       post.post = gameData._id;
       post.content = commentText;
 
@@ -56,13 +61,7 @@ export default function CommentSection({ gameData, seller }) {
         ? commentsData.map((comment) => (
             <Comment
               comment={comment}
-              me={
-                user
-                  ? user.sub
-                      .substring(user.sub.indexOf("|") + 1)
-                      .padEnd(24, "0")
-                  : ""
-              }
+              me={user ? currentUserId : ""}
               seller={seller._id}
             />
           ))
