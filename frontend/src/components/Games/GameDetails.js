@@ -46,8 +46,8 @@ export default function GameDetails() {
   const markStatus = async function (status) {
     gameData.status = status;
     gameData.seller = gameData.seller._id;
-    await fetch("http://localhost:3030/post/updatepost", {
-      method: "POST",
+    await fetch(`http://localhost:3030/post/${gameData._id}`, {
+      method: "PUT",
       headers: { "Content-type": "application/json" },
       body: JSON.stringify(gameData),
     });
