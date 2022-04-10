@@ -265,8 +265,8 @@ http://localhost:3030/user/:id
     "avatar_url": "Another url"
 }
 
-/user/getuserbyname/:user_name GET -- 已完成
-/user/getuserbyid/:id GET -- 已完成
+/user/byname/:user_name GET -- 已完成
+/user/:id GET -- 已完成
 获得用户的信息
 返回的信息:
 {
