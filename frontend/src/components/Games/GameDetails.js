@@ -1,6 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { Grid, Divider, Avatar, Button, Stack } from "@mui/material";
 import dateFormat from "dateformat";
 import "./GameDetails.css";
@@ -19,6 +19,8 @@ export default function GameDetails() {
   const currentUserId = user.sub
     .substring(user.sub.indexOf("|") + 1)
     .padEnd(24, "0");
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     getGameData();
@@ -48,6 +50,17 @@ export default function GameDetails() {
     });
     getGameData();
   };
+
+  const handleDelete = async function () {
+    const data = {};
+    data._id = gameData._id;
+    await fetch("http://localhost:3030/post/deletepost", {
+      method: "DELETE",
+      headers: { "Content-type": "application/json" },
+      body: JSON.stringify(data),
+    });
+    navigate("/profile");
+  }
 
   return (
     <Grid container className="game-details-page">
@@ -81,7 +94,7 @@ export default function GameDetails() {
               </Button>
             )}
             <Button variant="contained">Edit</Button>
-            <Button variant="contained">Delete</Button>
+            <Button variant="contained" onClick={handleDelete}>Delete</Button>
           </Stack>
         )}
         <br />

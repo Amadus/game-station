@@ -83,7 +83,6 @@ exports.post_update = [
   },
 ];
 
-// 这边其实还需要删除所有相关的comments，现在先不处理
 exports.post_delete = (req, res, next) => {
   Post.findById(req.body._id).exec((err, found_post) => {
     if (err) return next(err);
@@ -91,10 +90,13 @@ exports.post_delete = (req, res, next) => {
       res.send("Post not found!");
       return;
     }
-    Post.findByIdAndRemove(req.body._id, (err) => {
+    Comment.deleteMany({ post: found_post._id }).exec((err) => {
       if (err) return next(err);
-      res.send("Post deleted!");
-      return;
+      Post.findByIdAndRemove(req.body._id, (err) => {
+        if (err) return next(err);
+        res.send("Post deleted!");
+        return;
+      });
     });
   });
 };
