@@ -30,6 +30,8 @@ export default function Profile() {
 
   const { user } = useAuth0();
   const [games, setGames] = useState([]);
+  const [image, setImage] = useState('');
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     async function getUserPosts() {
@@ -52,6 +54,26 @@ export default function Profile() {
     getUserPosts();
   }, []);
 
+  const uploadImage = async e => {
+    const files = e.target.files;
+    const data = new FormData();
+    data.append("file", files[0]);
+    data.append("upload_preset", "gamestation");
+    setLoading(true);
+    const res = await fetch(
+      "https://api.cloudinary.com/v1_1/drextjznd/image/upload",
+      {
+        method: "POST",
+        body: data,
+      }
+    );
+    const file = await res.json();
+    setImage(file.secure_url);
+    console.log(file.secure_url);
+    setLoading(false);
+  }
+
+
 
 
   return (
@@ -72,6 +94,18 @@ export default function Profile() {
                 </Typography>
                 <Typography variant="body2" gutterBottom>
                   <div>{JSON.parse(JSON.stringify(user.email))}</div>
+                  <div>
+                    <input
+                      type="file"
+                      name="file"
+                      placeholder="Upload an image"
+                      onChange={uploadImage}
+                    />
+                    {loading ? (
+                      <h3>loading...</h3>) : (
+                      < img src={image} style={{ width: '300px' }} />
+                    )}
+                  </div>
                 </Typography>
               </Grid>
             </Grid>
