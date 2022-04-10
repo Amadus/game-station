@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./Sell.css";
-import { useAuth0 } from "@auth0/auth0-react";
-import { useNavigate } from "react-router-dom";
-import { IconButton, Input, Container } from "@mui/material";
+import { useParams, useNavigate } from "react-router-dom";
+import { IconButton, Input } from "@mui/material";
 import PhotoCamera from "@mui/icons-material/PhotoCamera";
 import TextField from "@mui/material/TextField";
 import InputLabel from "@mui/material/InputLabel";
@@ -14,9 +13,8 @@ import Stack from "@mui/material/Stack";
 import Autocomplete from "@mui/material/Autocomplete";
 import { cities } from "./Sell.constant";
 
-export default function Sell() {
-  const { user, isAuthenticated } = useAuth0();
-  const seller = user.sub.substring(user.sub.indexOf("|") + 1).padEnd(24, "0");
+export default function GameEdit() {
+  const gameId = useParams().gameId;
 
   const navigate = useNavigate();
 
@@ -30,24 +28,30 @@ export default function Sell() {
   const [description, setDescription] = useState("");
   const [image, setImage] = useState("");
 
+  const [gameData, setGameData] = useState({});
+
+  const getGameData = async function () {
+    const data = await fetch(
+      `http://localhost:3030/post/getpostbyid/${gameId}`
+    );
+    const game = await data.json();
+    setGameData(game);
+    setTitle(game.title);
+    setPrice(game.price);
+    setPicture_urls(game.picture_urls);
+    setCondition(game.condition);
+    setPlatform(game.platform);
+    setCity(game.city);
+    setPostal_code(game.postal_code);
+    setDescription(game.description);
+    setImage(game.picture_urls[0]);
+  };
+
   useEffect(() => {
-    async function checkUser() {
-      if (isAuthenticated) {
-        const dbUser = {};
-        dbUser._id = user.sub.substring(user.sub.indexOf("|") + 1).padEnd(24, "0");
-        dbUser.user_name = user.name;
-        dbUser.avatar_url = user.picture;
-        await fetch("http://localhost:3030/user/createuser", {
-          method: "POST",
-          headers: { "Content-type": "application/json" },
-          body: JSON.stringify(dbUser)
-        });
-      }
-    };
-    checkUser();
+    getGameData();
   }, []);
 
-  const clickSubmit = () => {
+  const clickSubmit = async () => {
     if (
       title === "" ||
       picture_urls.length === 0 ||
@@ -58,27 +62,23 @@ export default function Sell() {
     ) {
       alert("Please complete the form!");
     } else {
-      const post = {};
-      post.title = title;
-      post.price = price;
-      post.picture_urls = picture_urls;
-      post.condition = condition;
-      post.platform = platform;
-      post.city = city;
-      post.postal_code = postal_code;
-      post.description = description;
-      post.status = "Selling";
-      post.seller = seller;
+      console.log(gameData);
+      gameData.title = title;
+      gameData.price = price;
+      gameData.picture_urls = picture_urls;
+      gameData.condition = condition;
+      gameData.platform = platform;
+      gameData.city = city;
+      gameData.postal_code = postal_code;
+      gameData.description = description;
+      gameData.seller = gameData.seller._id;
 
-      fetch("http://localhost:3030/post/createpost", {
+      await fetch("http://localhost:3030/post/updatepost", {
         method: "POST",
         headers: { "Content-type": "application/json" },
-        body: JSON.stringify(post),
+        body: JSON.stringify(gameData),
       })
-        .then((res) => res.text())
-        .then((text) => console.log(text))
-        .then(alert("You have succuessfully submit your request!"))
-        .then(navigate("/"));
+      navigate(`/games/${gameData._id}`);
     }
   };
 
@@ -124,7 +124,7 @@ export default function Sell() {
                     {!image ? (
                       <PhotoCamera id="image-icon-1" />
                     ) : (
-                        <img src={image} alt="image" id="image-1"/>
+                      <img src={image} alt="image" id="image-1" />
                     )}
                   </IconButton>
                 </label>
@@ -132,7 +132,7 @@ export default function Sell() {
                   required
                   id="title"
                   label="Title"
-                  defaultValue=""
+                  value={title}
                   onChange={(e) => setTitle(e.target.value)}
                 />
                 <TextField
@@ -140,6 +140,7 @@ export default function Sell() {
                   id="price"
                   label="Price"
                   type="number"
+                  value={price}
                   onChange={(e) => setPrice(e.target.value)}
                 />
                 <FormControl fullWidth>
@@ -148,6 +149,7 @@ export default function Sell() {
                     labelId="select-label-condition"
                     id="condition"
                     label="Condition"
+                    value={condition}
                     onChange={(e) => setCondition(e.target.value)}
                   >
                     <MenuItem value="Used">Used</MenuItem>
@@ -160,6 +162,7 @@ export default function Sell() {
                     labelId="select-label-platform"
                     id="platform"
                     label="Platform"
+                    value={platform}
                     onChange={(e) => setPlatform(e.target.value)}
                   >
                     <MenuItem value="PlayStation 5">PlayStation 5</MenuItem>
@@ -173,6 +176,7 @@ export default function Sell() {
                   disablePortal
                   id="city"
                   options={cities}
+                  value={city}
                   renderInput={(params) => (
                     <TextField {...params} label="City" />
                   )}
@@ -181,12 +185,14 @@ export default function Sell() {
                 <TextField
                   required
                   id="postcal_code"
+                  value={postal_code}
                   label="Postal Code"
                   onChange={(e) => setPostal_code(e.target.value)}
                 />
                 <TextField
                   id="description"
                   label="Description"
+                  value={description}
                   multiline
                   maxRows={4}
                   onChange={(e) => setDescription(e.target.value)}
@@ -198,7 +204,7 @@ export default function Sell() {
                   size="large"
                   id="submit-button"
                 >
-                  Create Post
+                  Edit Post
                 </Button>
               </Stack>
             </form>

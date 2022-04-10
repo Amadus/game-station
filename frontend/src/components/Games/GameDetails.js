@@ -60,6 +60,10 @@ export default function GameDetails() {
       body: JSON.stringify(data),
     });
     navigate("/profile");
+  };
+
+  const handleEdit = function () {
+    navigate(`/gameedit/${gameData._id}`);
   }
 
   return (
@@ -93,7 +97,7 @@ export default function GameDetails() {
                 Mark Selling
               </Button>
             )}
-            <Button variant="contained">Edit</Button>
+            <Button variant="contained" onClick={handleEdit}>Edit</Button>
             <Button variant="contained" onClick={handleDelete}>Delete</Button>
           </Stack>
         )}
