@@ -1,11 +1,12 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { Grid, Divider, Avatar, Button } from "@mui/material";
+import { Grid, Divider, Avatar, Button, Stack } from "@mui/material";
 import dateFormat from "dateformat";
 import "./GameDetails.css";
 import MapWidget from "../utils/MapWidget";
 import CommentSection from "./CommentSection";
+import { useAuth0 } from "@auth0/auth0-react";
 
 export default function GameDetails() {
   const gameId = useParams().gameId;
@@ -14,22 +15,39 @@ export default function GameDetails() {
   const [date, setDate] = useState("");
   const [seller, setSeller] = useState({});
 
+  const { user } = useAuth0();
+  const currentUserId = user.sub
+    .substring(user.sub.indexOf("|") + 1)
+    .padEnd(24, "0");
+
   useEffect(() => {
-    async function getGameData() {
-      const data = await fetch(
-        `http://localhost:3030/post/getpostbyid/${gameId}`
-      );
-      const game = await data.json();
-      setGameData(game);
-      setGameUrl(game.picture_urls[0]);
-      console.log(game);
-      setDate(
-        dateFormat(new Date(game.post_date), "dddd, mmmm dS, yyyy, h:MM:ss TT")
-      );
-      setSeller(game.seller);
-    }
     getGameData();
   }, []);
+
+  const getGameData = async function () {
+    const data = await fetch(
+      `http://localhost:3030/post/getpostbyid/${gameId}`
+    );
+    const game = await data.json();
+    setGameData(game);
+    setGameUrl(game.picture_urls[0]);
+    console.log(game);
+    setDate(
+      dateFormat(new Date(game.post_date), "dddd, mmmm dS, yyyy, h:MM:ss TT")
+    );
+    setSeller(game.seller);
+  };
+
+  const markStatus = async function (status) {
+    gameData.status = status;
+    gameData.seller = gameData.seller._id;
+    await fetch("http://localhost:3030/post/updatepost", {
+      method: "POST",
+      headers: { "Content-type": "application/json" },
+      body: JSON.stringify(gameData),
+    });
+    getGameData();
+  };
 
   return (
     <Grid container className="game-details-page">
@@ -51,7 +69,22 @@ export default function GameDetails() {
         <p>Posted in {gameData.city}</p>
         <p className="little-text">{date}</p>
         <br />
-        <Divider variant="large" />
+        {gameData && gameData.seller && currentUserId === gameData.seller._id && (
+          <Stack direction="row" spacing={1}>
+            {gameData.status === "Selling" ? (
+              <Button variant="contained" onClick={() => markStatus("Sold")}>
+                Mark Sold
+              </Button>
+            ) : (
+              <Button variant="contained" onClick={() => markStatus("Selling")}>
+                Mark Selling
+              </Button>
+            )}
+            <Button variant="contained">Edit</Button>
+            <Button variant="contained">Delete</Button>
+          </Stack>
+        )}
+        <br />
         <h3>Details</h3>
         <p>
           <b>Condition:</b> {gameData.condition}

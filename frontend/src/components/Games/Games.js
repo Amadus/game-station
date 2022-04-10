@@ -30,7 +30,7 @@ export default function Games() {
     async function fetchGames() {
       const data = await fetch("http://localhost:3030/post/getallposts");
       const jsonData = await data.json();
-      setGames(jsonData);
+      setGames(jsonData.filter((game) => game.status === "Selling"));
     }
     fetchGames();
   }, []);
@@ -70,7 +70,8 @@ export default function Games() {
       body: JSON.stringify(data),
     });
     const resJson = await res.json();
-    setGames(resJson);
+    
+    setGames(resJson.filter((game) => game.status === "Selling"));
   };
 
   return (

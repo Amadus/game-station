@@ -23,17 +23,18 @@ export default function Home() {
       const data = await fetch("http://localhost:3030/post/getallposts");
       const jsonData = await data.json();
       console.log(jsonData);
-      setPicks(jsonData.slice(0, 8));
+      const sellingGames = jsonData.filter((game) => game.status === "Selling");
+      setPicks(sellingGames.slice(0, 8));
       setPsGames(
-        jsonData
+        sellingGames
           .filter((game) => game.platform.includes("PlayStation"))
           .slice(0, 8)
       );
       setXboxGames(
-        jsonData.filter((game) => game.platform.includes("Xbox")).slice(0, 8)
+        sellingGames.filter((game) => game.platform.includes("Xbox")).slice(0, 8)
       );
       setNsGames(
-        jsonData.filter((game) => game.platform.includes("Switch")).slice(0, 8)
+        sellingGames.filter((game) => game.platform.includes("Switch")).slice(0, 8)
       );
     }
     fetchGames();
