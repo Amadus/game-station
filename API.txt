@@ -247,9 +247,9 @@ http://localhost:3030/comment
   }
 ]
 
-/user/createuser POST -- 已完成
+/user POST -- 已完成
 创建一个用户，_id取auth0里的
-http://localhost:3030/user/createuser
+http://localhost:3030/user/
 {
     "_id": "624868954a79520069d97376",
     "user_name": "Peter",

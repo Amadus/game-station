@@ -48,7 +48,7 @@ export default function Sell() {
         dbUser._id = currentUserId;
         dbUser.user_name = user.name;
         dbUser.avatar_url = user.picture;
-        await fetch("http://localhost:3030/user/createuser", {
+        await fetch("http://localhost:3030/user", {
           method: "POST",
           headers: { "Content-type": "application/json" },
           body: JSON.stringify(dbUser),
