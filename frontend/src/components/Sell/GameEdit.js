@@ -31,9 +31,7 @@ export default function GameEdit() {
   const [gameData, setGameData] = useState({});
 
   const getGameData = async function () {
-    const data = await fetch(
-      `http://localhost:3030/post/${gameId}`
-    );
+    const data = await fetch(`http://localhost:3030/post/${gameId}`);
     const game = await data.json();
     setGameData(game);
     setTitle(game.title);
@@ -77,7 +75,7 @@ export default function GameEdit() {
         method: "PUT",
         headers: { "Content-type": "application/json" },
         body: JSON.stringify(gameData),
-      })
+      });
       navigate(`/games/${gameData._id}`);
     }
   };
@@ -197,15 +195,26 @@ export default function GameEdit() {
                   maxRows={4}
                   onChange={(e) => setDescription(e.target.value)}
                 />
-                <Button
-                  fullwidth
-                  variant="contained"
-                  onClick={clickSubmit}
-                  size="large"
-                  id="submit-button"
-                >
-                  Edit Post
-                </Button>
+                <Stack direction="row" spacing={2}>
+                  <Button
+                    fullwidth
+                    variant="contained"
+                    onClick={clickSubmit}
+                    size="large"
+                    id="submit-button"
+                  >
+                    Edit Post
+                  </Button>
+                  <Button
+                    fullwidth
+                    variant="contained"
+                    onClick={() => navigate(`/games/${gameData._id}`)}
+                    size="large"
+                    id="cancel-button"
+                  >
+                    Cancel
+                  </Button>
+                </Stack>
               </Stack>
             </form>
           </div>
