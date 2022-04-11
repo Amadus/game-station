@@ -8,13 +8,12 @@ import MenuItem from '@mui/material/MenuItem';
 import ProfileButton from "../Profile/ProfileButton";
 import LogoutButton from "./LogoutButton";
 
-function SubMenuButton(props) {
+function SubMenuButton({avatar, setAvatar}) {
 
   const { logout } = useAuth0();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const { user } = useAuth0();
   const open = Boolean(anchorEl);
-  const [avatar, setAvatar] = useState("");
   const handleProfileClick = (event) => {
     setAnchorEl(event.currentTarget);
   };

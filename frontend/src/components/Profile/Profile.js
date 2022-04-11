@@ -26,13 +26,12 @@ const Img = styled("img")({
 });
 
 
-export default function Profile() {
+export default function Profile({avatar, setAvatar}) {
 
   const { user } = useAuth0();
   const [games, setGames] = useState([]);
   const [image, setImage] = useState('');
   const [loading, setLoading] = useState(false);
-  const [avatar, setAvatar] = useState("");
 
   useEffect(() => {
     async function getUserPosts() {
@@ -66,7 +65,13 @@ export default function Profile() {
     setAvatar(url);
   };
 
-  useEffect(() => getUserAvatar(), [avatar]);
+  useEffect(() => getUserAvatar(), []);
+
+  useEffect(() => {
+    if (image) {
+      setAvatar(image);
+    }
+  }, [image]);
 
   const uploadImage = async e => {
     const files = e.target.files;
