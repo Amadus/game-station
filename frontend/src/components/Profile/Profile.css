@@ -12,3 +12,32 @@
     font-size: 1.1rem;
     margin: 0.5rem 0;
 }
+
+#avatar-upload {
+    display: none;
+}
+
+#avatarimg:hover {
+    cursor: pointer;
+}
+
+#avatarimg {
+    padding: 0%;
+    border-radius: 0.5em;
+}
+
+#imagebutton {
+    border-radius: 0.5em;
+}
+
+#imagebutton:hover {
+    background-color: rgba(0, 0, 0, 0.3);
+    transition: all 0.2s ease-out;
+}
+
+#textgrid {
+    margin-top: 2em;
+}
+
+#edittext {
+}

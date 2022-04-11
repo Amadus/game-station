@@ -1,7 +1,8 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import { styled } from '@mui/material/styles';
-import { Grid, Divider } from "@mui/material";
+import { Grid, Divider, Input, IconButton } from "@mui/material";
+
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import { useAuth0 } from "@auth0/auth0-react";
@@ -26,12 +27,12 @@ const Img = styled("img")({
 });
 
 
-export default function Profile({avatar, setAvatar}) {
+export default function Profile({ avatar, setAvatar }) {
 
   const { user } = useAuth0();
   const [games, setGames] = useState([]);
   const [image, setImage] = useState('');
-  const [loading, setLoading] = useState(false);
+  const [hover, setHover] = useState(false);
 
   useEffect(() => {
     async function getUserPosts() {
@@ -78,7 +79,6 @@ export default function Profile({avatar, setAvatar}) {
     const data = new FormData();
     data.append("file", files[0]);
     data.append("upload_preset", "gamestation");
-    setLoading(true);
 
     const res = await fetch(
       "https://api.cloudinary.com/v1_1/drextjznd/image/upload",
@@ -103,7 +103,6 @@ export default function Profile({avatar, setAvatar}) {
       body: JSON.stringify(updateData),
     });
 
-    setLoading(false);
 
   }
 
@@ -115,30 +114,34 @@ export default function Profile({avatar, setAvatar}) {
       <Grid container spacing={2} sx={{ margin: 'auto' }}>
         <Grid item sm={12} md={2}>
           <Grid item>
-            <ButtonBase sx={{ width: 128, height: 128 }}>
-              <Img src={avatar} alt="Avatar" />
+            <ButtonBase sx={{ width: 128, height: 128 }} id="imagebutton">
+              <label htmlFor="avatar-upload" id="image-box-2" onMouseEnter={() => setHover(true)}
+                onMouseLeave={() => setHover(false)}>
+                <Input
+                  accept="image/*"
+                  type="file"
+                  id='avatar-upload'
+                  onChange={uploadImage}
+                />
+
+                <Img
+                  src={avatar}
+                  id="avatarimg"
+                  alt="Avatar"
+                />
+                {hover && <div id="edittext">Edit</div>}
+              </label>
+
             </ButtonBase>
           </Grid>
-          <Grid item xs={12} sm container>
+          <Grid item xs={12} sm container id='textgrid'>
             <Grid item xs container direction="column" spacing={2}>
               <Grid item xs>
                 <Typography gutterBottom variant="subtitle1" component="div">
-                  <div>{JSON.parse(JSON.stringify(user.nickname))}</div>
+                  <h2>{JSON.parse(JSON.stringify(user.nickname))}</h2>
                 </Typography>
                 <Typography variant="body2" gutterBottom>
-                  <div>{JSON.parse(JSON.stringify(user.email))}</div>
-                  <div>
-                    <input
-                      type="file"
-                      name="file"
-                      placeholder="Upload an image"
-                      onChange={uploadImage}
-                    />
-                    {loading ? (
-                      <h3>loading...</h3>) : (
-                      < img src={image} style={{ width: '300px' }} />
-                    )}
-                  </div>
+                  <h3>{JSON.parse(JSON.stringify(user.email))}</h3>
                 </Typography>
               </Grid>
             </Grid>
