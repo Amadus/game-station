@@ -30,14 +30,11 @@
     border-radius: 0.5em;
 }
 
-#imagebutton:hover {
-    background-color: rgba(0, 0, 0, 0.3);
-    transition: all 0.2s ease-out;
-}
-
 #textgrid {
     margin-top: 2em;
 }
 
-#edittext {
+#edittext:hover {
+    background-color: rgba(0, 0, 0, 0.3);
+    transition: all 2s ease-out;
 }

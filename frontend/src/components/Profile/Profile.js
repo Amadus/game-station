@@ -114,7 +114,7 @@ export default function Profile({ avatar, setAvatar }) {
       <Grid container spacing={2} sx={{ margin: 'auto' }}>
         <Grid item sm={12} md={2}>
           <Grid item>
-            <ButtonBase sx={{ width: 128, height: 128 }} id="imagebutton">
+            <IconButton sx={{ width: 128, height: 128 }} id="imagebutton">
               <label htmlFor="avatar-upload" id="image-box-2" onMouseEnter={() => setHover(true)}
                 onMouseLeave={() => setHover(false)}>
                 <Input
@@ -132,7 +132,7 @@ export default function Profile({ avatar, setAvatar }) {
                 {hover && <div id="edittext">Edit</div>}
               </label>
 
-            </ButtonBase>
+            </IconButton>
           </Grid>
           <Grid item xs={12} sm container id='textgrid'>
             <Grid item xs container direction="column" spacing={2}>
