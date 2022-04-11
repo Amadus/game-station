@@ -114,25 +114,25 @@ export default function Profile({ avatar, setAvatar }) {
       <Grid container spacing={2} sx={{ margin: 'auto' }}>
         <Grid item sm={12} md={2}>
           <Grid item>
-            <IconButton sx={{ width: 128, height: 128 }} id="imagebutton">
-              <label htmlFor="avatar-upload" id="image-box-2" onMouseEnter={() => setHover(true)}
-                onMouseLeave={() => setHover(false)}>
-                <Input
-                  accept="image/*"
-                  type="file"
-                  id='avatar-upload'
-                  onChange={uploadImage}
-                />
+            <label htmlFor="avatar-upload" id="image-box-2" >
+              <Input
+                accept="image/*"
+                id="avatar-upload"
+                type="file"
+                onChange={uploadImage}
+              />
+              <IconButton
+                color="primary"
+                aria-label="upload picture"
+                component="span"
+              >
+                <div>
+                  {hover && <p>Edit</p>}
+                  <img src={avatar} alt="avatar" id="avatarimage" />
+                </div>
+              </IconButton>
+            </label>
 
-                <Img
-                  src={avatar}
-                  id="avatarimg"
-                  alt="Avatar"
-                />
-                {hover && <div id="edittext">Edit</div>}
-              </label>
-
-            </IconButton>
           </Grid>
           <Grid item xs={12} sm container id='textgrid'>
             <Grid item xs container direction="column" spacing={2}>
