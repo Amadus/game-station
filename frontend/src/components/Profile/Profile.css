@@ -1,0 +1,45 @@
+#user-items {
+    padding: 1.5rem 2% 1.5rem 2%;
+    overflow-y: scroll;
+}
+
+#user-items h2 {
+    font-size: 1.3rem;
+    margin-bottom: 0.5rem;
+}
+
+#items-list {
+    font-size: 1.1rem;
+    margin: 0.5rem 0;
+}
+
+#avatar-upload {
+    display: none;
+}
+
+#avatarimage:hover {
+    cursor: pointer;
+}
+
+#avatarimage {
+    padding: 0%;
+    border-radius: 0.5em;
+    width: 6rem;
+    box-shadow: 0 6px 20px rgba(24, 53, 106, 0.17);
+}
+
+#image-box-2 p {
+    width: 100%;
+    height: 200px;
+    text-align: center;
+    line-height: 200px;
+    color: white;
+    font-weight: bold;
+    font-size: 2rem;
+    letter-spacing: 0.2rem;
+}
+
+#image-box-2 p:hover {
+    background-color: rgba(0, 0, 0, 0.3);
+    transition: all 0.2s ease-out;
+}

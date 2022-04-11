@@ -7,7 +7,7 @@ import LogoutButton from "./Login/LogoutButton";
 import SubMenuButton from "./Login/SubMenuButton";
 import ProfileButton from "./Profile/ProfileButton";
 
-function Navbar() {
+function Navbar({ avatar, setAvatar }) {
   const [click, setClick] = useState(false);
   const { isAuthenticated } = useAuth0();
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
@@ -18,9 +18,11 @@ function Navbar() {
   };
 
   useEffect(() => {
-    const changeWidth = () => { setScreenWidth(window.innerWidth) };
+    const changeWidth = () => {
+      setScreenWidth(window.innerWidth);
+    };
     window.addEventListener("resize", changeWidth);
-  })
+  });
 
   return (
     <>
@@ -56,21 +58,41 @@ function Navbar() {
               </Link>
             </li>
 
-            {(screenWidth >= 960) && (isAuthenticated ? <li className="nav-item"><SubMenuButton /></li> : <li className="nav-item"> <LoginButton /></li>)}
-            {(screenWidth < 960) && (isAuthenticated ?
-              <>
-                <Link to="/profile" className="nav-links" onClick={closeMobileMenu}>
-                  Profile
-                </Link>
-                <li className="nav-links" onClick={() => {
-                  logout({ returnTo: window.location.origin });
-                }}>
-                  Logout
+            {screenWidth >= 960 &&
+              (isAuthenticated ? (
+                <li className="nav-item">
+                  <SubMenuButton avatar={avatar} setAvatar={setAvatar} />
                 </li>
-              </>
-              :
-              <li className="nav-item"><LoginButton /></li>)}
-
+              ) : (
+                <li className="nav-item">
+                  {" "}
+                  <LoginButton />
+                </li>
+              ))}
+            {screenWidth < 960 &&
+              (isAuthenticated ? (
+                <>
+                  <Link
+                    to="/profile"
+                    className="nav-links"
+                    onClick={closeMobileMenu}
+                  >
+                    Profile
+                  </Link>
+                  <li
+                    className="nav-links"
+                    onClick={() => {
+                      logout({ returnTo: window.location.origin });
+                    }}
+                  >
+                    Logout
+                  </li>
+                </>
+              ) : (
+                <li className="nav-item">
+                  <LoginButton />
+                </li>
+              ))}
           </ul>
         </div>
       </nav>

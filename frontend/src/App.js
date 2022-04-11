@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Navbar from "./components/Navbar";
 import { Routes, Route } from "react-router-dom";
 import "./App.css";
@@ -13,6 +13,7 @@ import GameEdit from "./components/Sell/GameEdit";
 
 function App() {
   const { isLoading } = useAuth0();
+  const [avatar, setAvatar] = useState("");
 
   return (
     <>
@@ -20,7 +21,7 @@ function App() {
         <img src="/images/loading.svg" alt="Loading" />
       ) : (
         <>
-          <Navbar />
+          <Navbar avatar={avatar} setAvatar={setAvatar} />
           <Routes>
             <Route path="/" exact element={<Home />} />
             <Route path="/games" exact element={<Games />} />
@@ -31,7 +32,11 @@ function App() {
               exact
               element={<ProtectedRoute protectedComponent={Sell} />}
             />
-            <Route path="/profile" exact element={<Profile />} />
+            <Route
+              path="/profile"
+              exact
+              element={<Profile avatar={avatar} setAvatar={setAvatar} />}
+            />
           </Routes>
         </>
       )}

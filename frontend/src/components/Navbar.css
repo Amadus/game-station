@@ -108,6 +108,15 @@ button {
   color: #000;
 }
 
+#dashboardButton {
+  width: 2rem;
+  height: 2rem;
+}
+
+#dashboardButton img {
+  width: 3rem;
+  height: 3rem;
+}
 @media screen and (max-width: 960px) {
   .NavbarItems {
     position: relative;
