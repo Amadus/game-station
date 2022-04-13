@@ -1,70 +1,50 @@
-# Getting Started with Create React App
+# Game Station
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+We built a website where gamers in Canada can trade second-handed
+video games with the least amount of effort. Nowadays GameStop is a well-known platform
+for this purpose, but GameStop stores offer relatively lower prices for game owners and
+sell second-handed games at higher prices so that they can make profits. Our goal is to
+build an end-to-end platform to bring gamers together for sharing their games.
 
-## Available Scripts
 
-In the project directory, you can run:
 
-### `npm start`
+## List of Features
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+1. We will use Auth0 to take care of the authentication and authorization of our users.
+   When registering, we will also require some additional information such as this user’
+   avatar, home address, and contact information for easy trade.
+2. Our homepage will display game listings based on trends and different platforms.
+   Logged-in users will also see their current listings (which are posted for sale or which
+   are already sold).
+3. If you want to search for specific games, you can type keywords plus several filters
+   such as location, platform, price range, etc., to get the search results.
+4. If you click on a game item on the homepage or search results page, you will be
+   directed into the game listing details page, you can see additional pictures of the game,
+   its price, its platform, its used-state, where you can pick it (We’ll use Google Maps
+   API to show a mini-map), and comments that are posted by other potential buyers or
+   viewers. Logged-in users can post comments.
+5. Users can sell their games by clicking the “Sell” button and submitting a form containing the
+   the information mentioned above.
+6. When logged-in users click their name or avatar, they will be directed to the user profile
+   page, where they can edit their personal information and see current or historical
+   listings.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Screenshots
 
-### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
+![homepage](D:\Toys\game-station\frontend\public\images\screenshots\homepage.jpg)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Contributions
 
-### `npm run eject`
+Home Page: Pan Wang, Yu Gao
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Game Detail Page: Pan Wang, Lin Li
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Sell Page: Lin Li, Pan Wang
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Profile Page/User Authorization: Yu Gao
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Server Side: Lin Li, Yu Gao
