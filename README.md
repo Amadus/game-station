@@ -35,25 +35,25 @@ build an end-to-end platform to bring gamers together for sharing their games.
 
 Homepage
 
-![homepage](.\frontend\public\images\screenshots\homepage.jpg)
+![homepage](./frontend/public/images/screenshots/homepage.jpg)
 
 
 
 Game Page
 
-![gamepage](.\frontend\public\images\screenshots\gamepage.jpg)
+![gamepage](./frontend/public/images/screenshots/gamepage.jpg)
 
 Profile Page
 
-![profilepage](.\frontend\public\images\screenshots\profilepage.jpg)
+![profilepage](./frontend/public/images/screenshots/profilepage.jpg)
 
 Sell Page
 
-![sellpage](.\frontend\public\images\screenshots\sellpage.jpg)
+![sellpage](./frontend/public/images/screenshots/sellpage.jpg)
 
 Detail Page
 
-![detailpage](.\frontend\public\images\screenshots\detailpage.jpg)
+![detailpage](./frontend/public/images/screenshots/detailpage.jpg)
 
 ## Contributions
 
