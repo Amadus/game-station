@@ -72,13 +72,15 @@ function Navbar({ avatar, setAvatar }) {
             {screenWidth < 960 &&
               (isAuthenticated ? (
                 <>
-                  <Link
-                    to="/profile"
-                    className="nav-links"
-                    onClick={closeMobileMenu}
-                  >
-                    Profile
-                  </Link>
+                  <li>
+                    <Link
+                      to="/profile"
+                      className="nav-links"
+                      onClick={closeMobileMenu}
+                    >
+                      Profile
+                    </Link>
+                  </li>
                   <li
                     className="nav-links"
                     onClick={() => {

@@ -10,7 +10,11 @@ export default function GameCard({ infor }) {
     <>
       <li id="cards" className="cards-item">
         <div className="cards-item-link">
-          <Link to={`/games/${infor._id}`} id="picture-link">
+          <Link
+            to={`/games/${infor._id}`}
+            className="picture-link"
+            aria-label={infor.title}
+          >
             <div
               id="picture-area"
               style={{
@@ -25,7 +29,7 @@ export default function GameCard({ infor }) {
             </div>
           </Link>
           <div className="cards-item-info">
-            <h4>{infor.title}</h4>
+            <h3>{infor.title}</h3>
             <p className="cards-item-text">{infor.post_date.slice(0, 10)}</p>
             <p className="cards-item-text">
               <b>Postal Code:</b> {infor.postal_code}
@@ -34,7 +38,11 @@ export default function GameCard({ infor }) {
               <b>Price:</b> C${infor.price}
             </p>
             <Link to={`/games/${infor._id}`}>
-              <Button variant="contained" id="detail-button">
+              <Button
+                variant="contained"
+                className="detail-button"
+                style={{ position: "absolute", bottom: "1rem" }}
+              >
                 Details
               </Button>
             </Link>
