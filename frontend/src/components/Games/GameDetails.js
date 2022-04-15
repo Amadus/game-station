@@ -70,12 +70,13 @@ export default function GameDetails() {
       <Grid item md={9} xs={12} id="picture-section">
         <div
           id="picture-area-details"
+          alt={gameData.title}
           style={{
             background: `url(${gameUrl}) center center/cover no-repeat`,
           }}
         >
           <div className="blur">
-            <img src={gameUrl} alt="game" id="hd-image" />
+            <img src={gameUrl} alt={gameData.title} id="hd-image" />
           </div>
         </div>
       </Grid>
@@ -125,7 +126,11 @@ export default function GameDetails() {
         <br />
         <Divider variant="large" />
         <h3>Seller Information</h3>
-        <Avatar src={seller?.avatar_url} id="seller-avatar" />
+        <Avatar
+          src={seller?.avatar_url}
+          alt={seller?.user_name}
+          id="seller-avatar"
+        />
         <p id="seller-name">{seller?.user_name}</p>
         <Divider variant="large" />
         <h3>Description</h3>

@@ -22,6 +22,7 @@ export default function Comment({ comment, me, seller }) {
       <Avatar
         src={user.avatar_url}
         sx={{ width: 35, height: 35 }}
+        alt={user.user_name}
         id="sender-avatar"
       />
       <p className="sender-name">
