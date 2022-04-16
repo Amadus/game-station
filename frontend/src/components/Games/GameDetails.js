@@ -2,7 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Grid, Divider, Avatar, Button, Stack } from "@mui/material";
-import dateFormat from "dateformat";
+import { DateTime } from "luxon";
 import "./GameDetails.css";
 import MapWidget from "../utils/MapWidget";
 import CommentSection from "./CommentSection";
@@ -37,9 +37,7 @@ export default function GameDetails() {
     const game = await data.json();
     setGameData(game);
     setGameUrl(game.picture_urls[0]);
-    setDate(
-      dateFormat(new Date(game.post_date), "dddd, mmmm dS, yyyy, h:MM:ss TT")
-    );
+    setDate(DateTime.fromISO(game.post_date).toRelative());
     setSeller(game.seller);
   };
 
