@@ -65,7 +65,7 @@ export default function GameDetails() {
 
   return (
     <Grid container className="game-details-page">
-      <Grid item md={9} xs={12} id="picture-section">
+      <Grid item md={8} xs={12} id="picture-section">
         <div
           id="picture-area-details"
           alt={gameData.title}
@@ -78,7 +78,7 @@ export default function GameDetails() {
           </div>
         </div>
       </Grid>
-      <Grid item md={3} xs={12} id="details-section">
+      <Grid item md={4} xs={12} id="details-section">
         <h2>{gameData.title}</h2>
         <p>C${gameData.price}</p>
         <p>Posted in {gameData.city}</p>
