@@ -6,10 +6,35 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { faTrashCan } from "@fortawesome/free-regular-svg-icons";
 
 export default function ImagesUpload({ picture_urls, setPicture_urls }) {
-  const [showImage2, setShowImage2] = useState(false);
+  const [showDeleteButton, setShowDeleteButton] = useState(false);
+  const [showAddButton, setShowAddButton] = useState(false);
+  const [inputNum, setInputNum] = useState(1);
+  const [neverUpload, setNeverUpload] = useState(true);
+
+  useEffect(() => {
+    if (neverUpload && picture_urls.length) {
+      setInputNum(picture_urls.length);
+    }
+
+    if (picture_urls.length === inputNum && picture_urls.length < 3) {
+      setShowAddButton(true);
+    } else {
+      setShowAddButton(false);
+    }
+
+    if (inputNum > 1) {
+      setShowDeleteButton(true);
+    } else {
+      setShowDeleteButton(false);
+    }
+  }, [picture_urls.length, inputNum]);
 
   const uploadImage = async (e, index) => {
+    setNeverUpload(false);
     const files = e.target.files;
+    if (!files.length) {
+      return;
+    }
     const data = new FormData();
     data.append("file", files[0]);
     data.append("upload_preset", "gamestationca");
@@ -29,19 +54,15 @@ export default function ImagesUpload({ picture_urls, setPicture_urls }) {
   };
 
   const addAnImage = () => {
-    if (!showImage2) {
-      setShowImage2(true);
-    }
+    setInputNum(inputNum + 1);
   };
 
-  const deleteAnImage = (index) => {
-    if (index === 2) {
-      let urls = getUrlsCopy();
-      urls.splice(1, 2);
-      console.log(urls);
-      setPicture_urls(urls);
-      setShowImage2(false);
+  const deleteAnImage = () => {
+    if (inputNum === picture_urls.length) {
+      picture_urls.pop();
+      console.log(picture_urls);
     }
+    setInputNum(inputNum - 1);
   };
 
   const getUrlsCopy = () => {
@@ -68,55 +89,77 @@ export default function ImagesUpload({ picture_urls, setPicture_urls }) {
           id="icon-button-0"
         >
           {!picture_urls[0] ? (
-            <PhotoCamera id="image-icon-1" />
+            <PhotoCamera id="image-icon-0" />
           ) : (
             <img src={picture_urls[0]} alt="image-0" className="images" />
           )}
         </IconButton>
       </label>
-      {showImage2 && (
-        <>
-          <label htmlFor="icon-button-file1" id="image-box-1">
-            <Input
-              accept="image/*"
-              id="icon-button-file1"
-              type="file"
-              onChange={(e) => uploadImage(e, 1)}
-            />
-            <IconButton
-              color="primary"
-              aria-label="upload picture"
-              component="span"
-              id="icon-button-1"
-            >
-              {!picture_urls[1] ? (
-                <PhotoCamera id="image-icon-1" />
-              ) : (
-                <img src={picture_urls[1]} alt="image-1" className="images" />
-              )}
-            </IconButton>
-          </label>
-          <Button
-            variant="outlined"
-            startIcon={<FontAwesomeIcon icon={faTrashCan} />}
-            onClick={() => {
-              deleteAnImage(2);
-            }}
-            color="error"
-            fullWidth
+      {inputNum >= 2 && (
+        <label htmlFor="icon-button-file1" id="image-box-1">
+          <Input
+            accept="image/*"
+            id="icon-button-file1"
+            type="file"
+            onChange={(e) => uploadImage(e, 1)}
+          />
+          <IconButton
+            color="primary"
+            aria-label="upload picture"
+            component="span"
+            id="icon-button-1"
           >
-            Delete One
-          </Button>
-        </>
+            {!picture_urls[1] ? (
+              <PhotoCamera id="image-icon-1" />
+            ) : (
+              <img src={picture_urls[1]} alt="image-1" className="images" />
+            )}
+          </IconButton>
+        </label>
       )}
-      <Button
-        variant="outlined"
-        startIcon={<FontAwesomeIcon icon={faPlus} />}
-        onClick={addAnImage}
-        fullWidth
-      >
-        Add another
-      </Button>
+      {inputNum >= 3 && (
+        <label htmlFor="icon-button-file2" id="image-box-2">
+          <Input
+            accept="image/*"
+            id="icon-button-file2"
+            type="file"
+            onChange={(e) => uploadImage(e, 2)}
+          />
+          <IconButton
+            color="primary"
+            aria-label="upload picture"
+            component="span"
+            id="icon-button-2"
+          >
+            {!picture_urls[2] ? (
+              <PhotoCamera id="image-icon-2" />
+            ) : (
+              <img src={picture_urls[2]} alt="image-2" className="images" />
+            )}
+          </IconButton>
+        </label>
+      )}
+      {showDeleteButton && (
+        <Button
+          variant="outlined"
+          startIcon={<FontAwesomeIcon icon={faTrashCan} />}
+          onClick={deleteAnImage}
+          color="error"
+          fullWidth
+        >
+          Delete One
+        </Button>
+      )}
+      {showAddButton && (
+        <Button
+          variant="outlined"
+          startIcon={<FontAwesomeIcon icon={faPlus} />}
+          onClick={addAnImage}
+          fullWidth
+        >
+          Add another
+        </Button>
+      )}
     </>
   );
 }

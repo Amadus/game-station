@@ -24,16 +24,16 @@
   margin-bottom: 24px;
 }
 
-#icon-button-file0,  #icon-button-file1{
+#icon-button-file0,  #icon-button-file1, #icon-button-file2 {
   display: none;
 }
 
-#icon-button-0, #icon-button-1 {
+#icon-button-0, #icon-button-1, #icon-button-2 {
   border: solid 1px blue;
   border-radius: 5px;
 }
 
-#image-icon-0, #image-icon-1 {
+#image-icon-0, #image-icon-1, #image-icon-2 {
   font-size: 4rem;
   margin: 4rem;
 }
