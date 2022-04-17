@@ -65,13 +65,14 @@ function Navbar({ avatar, setAvatar }) {
                 </li>
               ) : (
                 <li className="nav-item">
+                  {" "}
                   <LoginButton />
                 </li>
               ))}
             {screenWidth < 960 &&
               (isAuthenticated ? (
                 <>
-                  <li className="nav-item">
+                  <li>
                     <Link
                       to="/profile"
                       className="nav-links"
@@ -80,15 +81,13 @@ function Navbar({ avatar, setAvatar }) {
                       Profile
                     </Link>
                   </li>
-                  <li className="nav-item">
-                    <div
-                      className="nav-links"
-                      onClick={() => {
-                        logout({ returnTo: window.location.origin });
-                      }}
-                    >
-                      Logout
-                    </div>
+                  <li
+                    className="nav-links"
+                    onClick={() => {
+                      logout({ returnTo: window.location.origin });
+                    }}
+                  >
+                    Logout
                   </li>
                 </>
               ) : (
