@@ -2,14 +2,13 @@ import React from "react";
 import { useEffect, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import "../Navbar.css";
-import Button from '@mui/material/Button';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
+import Button from "@mui/material/Button";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
 import ProfileButton from "../Profile/ProfileButton";
 import LogoutButton from "./LogoutButton";
 
-function SubMenuButton({avatar, setAvatar}) {
-
+function SubMenuButton({ avatar, setAvatar }) {
   const { logout } = useAuth0();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const { user } = useAuth0();
@@ -36,13 +35,13 @@ function SubMenuButton({avatar, setAvatar}) {
     setAvatar(url);
   };
 
-
   return (
-    <div className="nav-links" >
-      <Button id="dashboardButton"
-        aria-controls={open ? 'basic-menu' : undefined}
+    <div className="nav-links nav-avatar">
+      <Button
+        id="dashboardButton"
+        aria-controls={open ? "basic-menu" : undefined}
         aria-haspopup="true"
-        aria-expanded={open ? 'true' : undefined}
+        aria-expanded={open ? "true" : undefined}
         onClick={handleProfileClick}
         onClose={handleProfileClose}
       >
@@ -53,16 +52,14 @@ function SubMenuButton({avatar, setAvatar}) {
         anchorEl={anchorEl}
         open={open}
         MenuListProps={{
-          'aria-labelledby': 'basic-button',
+          "aria-labelledby": "basic-button",
         }}
-
         onClose={handleProfileClose}
       >
         <ProfileButton />
         <LogoutButton />
       </Menu>
     </div>
-
   );
 }
 
