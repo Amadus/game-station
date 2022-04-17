@@ -1,6 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import Carousel from "react-material-ui-carousel";
 import { Grid, Divider, Avatar, Button, Stack } from "@mui/material";
 import { DateTime } from "luxon";
@@ -125,11 +125,12 @@ export default function GameDetails() {
         <br />
         <Divider variant="large" />
         <h3>Seller Information</h3>
-        <Avatar
-          src={seller?.avatar_url}
-          alt={seller?.user_name}
-          id="seller-avatar"
-        />
+        <Link to={`/sellerprofile/${seller._id}`}>
+          <Avatar
+            src={seller?.avatar_url}
+            alt={seller?.user_name}
+            id="seller-avatar"
+          /></Link>
         <p id="seller-name">{seller?.user_name}</p>
         <Divider variant="large" />
         <h3>Description</h3>
