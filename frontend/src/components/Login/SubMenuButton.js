@@ -38,7 +38,7 @@ function SubMenuButton({avatar, setAvatar}) {
 
 
   return (
-    <div className="nav-links" >
+    <div className="nav-links nav-avatar">
       <Button id="dashboardButton"
         aria-controls={open ? 'basic-menu' : undefined}
         aria-haspopup="true"
