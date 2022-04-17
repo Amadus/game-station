@@ -7,7 +7,6 @@ import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import { useAuth0 } from "@auth0/auth0-react";
 import Typography from '@mui/material/Typography';
-import ButtonBase from '@mui/material/ButtonBase';
 import GameSection from '../Games/GameSection';
 import "./Profile.css";
 
@@ -112,7 +111,7 @@ export default function Profile({ avatar, setAvatar }) {
 
     <Box sx={{ flexGrow: 1 }}>
       <Grid container spacing={2} sx={{ margin: 'auto' }}>
-        <Grid item sm={12} md={2}>
+        <Grid item xs={12} sm={12} md={2} id="image-box-1">
           <Grid item>
             <label htmlFor="avatar-upload" id="image-box-2" >
               <Input
