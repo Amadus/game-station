@@ -130,8 +130,9 @@ export default function GameDetails() {
             src={seller?.avatar_url}
             alt={seller?.user_name}
             id="seller-avatar"
-          /></Link>
-        <p id="seller-name">{seller?.user_name}</p>
+          />
+          <p id="seller-name">{seller?.user_name}</p>
+        </Link>
         <Divider variant="large" />
         <h3>Description</h3>
         {gameData.description ? (
