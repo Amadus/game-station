@@ -62,20 +62,11 @@
   text-decoration: none;
   margin-top: 2rem;
   padding: 0.5rem 1rem;
-  cursor: pointer;
 }
 
 .nav-links:hover {
   border-bottom: 4px solid #fff;
   transition: all 0.2s ease-out;
-}
-
-.nav-avatar {
-  height: 40px;
-}
-
-.nav-avatar:hover {
-  border-bottom: none;
 }
 
 button {
@@ -87,7 +78,6 @@ button {
   border-radius: 0.4rem;
   margin-top: 2rem;
   padding: 0.5rem 1rem;
-  cursor: pointer;
 }
 
 #dashboardButton {
@@ -135,9 +125,9 @@ button {
   .nav-menu {
     display: flex;
     flex-direction: column;
-    justify-content: center;
     width: 100%;
-    height: calc(100vh - 80px);
+    height: 91vh;
+    padding-bottom: 50vh;
     position: absolute;
     top: 80px;
     left: -100%;
