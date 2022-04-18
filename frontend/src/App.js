@@ -6,6 +6,7 @@ import Home from "./components/Home/Home";
 import Games from "./components/Games/Games";
 import GameDetails from "./components/Games/GameDetails";
 import Sell from "./components/Sell/Sell";
+import SellerProfile from "./components/Profile/SellerProfile";
 import Profile from "./components/Profile/Profile";
 import { useAuth0 } from "@auth0/auth0-react";
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -25,6 +26,7 @@ function App() {
           <Routes>
             <Route path="/" exact element={<Home />} />
             <Route path="/games" exact element={<Games />} />
+            <Route path="/sellerprofile/:sellerId" exact element={<SellerProfile />} />
             <Route path="/games/:gameId" exact element={<GameDetails />} />
             <Route path="/gameedit/:gameId" exact element={<GameEdit />} />
             <Route
