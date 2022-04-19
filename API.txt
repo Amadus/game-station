@@ -275,3 +275,62 @@ http://localhost:3030/user/:id
   "avatar_url": "http://localhost:3030/public/images/amadus.png",
   "__v": 0
 }
+
+
+/history POST
+增加浏览历史记录
+work_flow：如果user已经浏览过post，则更新date。如果没有，新创建一个document。
+{
+    "user": "6252622dbee286006a6c98bb",
+    "post": "62508631cc6636b8df24b013"
+}
+
+/history/byuser/:user_id GET
+查询某用户的浏览记录，只返回前8个，需要把post填充。
+[
+   {
+      "_id":"625e08c534045a5952111a6a",
+      "user":"6252622dbee286006a6c98bb",
+      "date":"2022-04-19T00:56:37.375Z",
+      "post":{
+         "_id":"62508631cc6636b8df24b013",
+         "title":"Kirby and the Forgotten Land, Switch",
+         "price":70,
+         "picture_urls":[
+            "https://res.cloudinary.com/gamestationca/image/upload/v1649444367/games/Kirby_ghjlim.jpg"
+         ],
+         "post_date":"2022-04-08T19:00:01.111Z",
+         "condition":"Used",
+         "platform":"Nintendo Switch",
+         "postal_code":"V7C 0A4",
+         "description":"The first 3D kirby game, so fun to play",
+         "status":"Selling",
+         "seller":"624a6586be9b3f0070b96110",
+         "__v":0
+      },
+      "__v":0
+   },
+   {
+      "_id":"625e088d34045a5952111a65",
+      "user":"6252622dbee286006a6c98bb",
+      "date":"2022-04-19T00:55:57.561Z",
+      "post":{
+         "_id":"62508c5d5ba6d77c45cf8346",
+         "title":"life is strange, xbox version",
+         "price":39,
+         "picture_urls":[
+            "https://res.cloudinary.com/gamestationca/image/upload/v1649445926/games/Screen_Shot_2022-04-08_at_12.25.12_PM_zetk6r.png"
+         ],
+         "post_date":"2022-04-08T19:26:21.821Z",
+         "condition":"Used",
+         "platform":"Xbox Series X|S",
+         "city":"Vancouver",
+         "postal_code":"V7C 0A4",
+         "description":"Highly recommended.",
+         "status":"Selling",
+         "seller":"103038299971966987559000",
+         "__v":0
+      },
+      "__v":0
+   }
+]

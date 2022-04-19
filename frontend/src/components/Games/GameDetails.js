@@ -34,6 +34,28 @@ export default function GameDetails() {
     getGameData();
   }, []);
 
+  useEffect(() => {
+    async function updateHistory() {
+      if (isAuthenticated) {
+        let currentUserId = user.sub.substring(user.sub.indexOf("|") + 1);
+        if (currentUserId.length > 24) {
+          currentUserId = currentUserId.substring(0, 24);
+        } else {
+          currentUserId = currentUserId.padEnd(24, "0");
+        }
+        const history = {};
+        history.user = currentUserId;
+        history.post = gameId;
+        await fetch("http://localhost:3030/history", {
+          method: "POST",
+          headers: { "Content-type": "application/json" },
+          body: JSON.stringify(history),
+        });
+      }
+    }
+    updateHistory();
+  }, []);
+
   const getGameData = async function () {
     const data = await fetch(`http://localhost:3030/post/${gameId}`);
     const game = await data.json();

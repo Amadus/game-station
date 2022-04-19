@@ -15,11 +15,14 @@ import ImagesUpload from "./ImagesUpload";
 
 export default function Sell() {
   const { user, isAuthenticated } = useAuth0();
-  let seller = user.sub.substring(user.sub.indexOf("|") + 1);
-  if (seller.length > 24) {
-    seller = seller.substring(0, 24);
-  } else {
-    seller = seller.padEnd(24, "0");
+  let seller = "";
+  if (isAuthenticated) {
+    seller = user.sub.substring(user.sub.indexOf("|") + 1);
+    if (seller.length > 24) {
+      seller = seller.substring(0, 24);
+    } else {
+      seller = seller.padEnd(24, "0");
+    }
   }
 
   const navigate = useNavigate();
