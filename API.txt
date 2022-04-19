@@ -275,3 +275,11 @@ http://localhost:3030/user/:id
   "avatar_url": "http://localhost:3030/public/images/amadus.png",
   "__v": 0
 }
+
+
+/history POST
+增加浏览历史记录
+work_flow：如果user已经浏览过post，则更新date。如果没有，新创建一个document。
+
+/history/byuser/:user_id GET
+查询某用户的浏览记录，只返回前8个，需要把post填充。
