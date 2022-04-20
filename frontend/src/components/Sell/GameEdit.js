@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./Sell.css";
 import { useParams, useNavigate } from "react-router-dom";
-import { IconButton, Input } from "@mui/material";
-import PhotoCamera from "@mui/icons-material/PhotoCamera";
 import TextField from "@mui/material/TextField";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
@@ -12,6 +10,7 @@ import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 import Autocomplete from "@mui/material/Autocomplete";
 import { cities } from "./Sell.constant";
+import ImagesUpload from "./ImagesUpload";
 
 export default function GameEdit() {
   const gameId = useParams().gameId;
@@ -26,7 +25,6 @@ export default function GameEdit() {
   const [city, setCity] = useState("");
   const [postal_code, setPostal_code] = useState("");
   const [description, setDescription] = useState("");
-  const [image, setImage] = useState("");
 
   const [gameData, setGameData] = useState({});
 
@@ -42,7 +40,6 @@ export default function GameEdit() {
     setCity(game.city);
     setPostal_code(game.postal_code);
     setDescription(game.description);
-    setImage(game.picture_urls[0]);
   };
 
   useEffect(() => {
@@ -80,25 +77,6 @@ export default function GameEdit() {
     }
   };
 
-  const uploadImage = async (e) => {
-    const files = e.target.files;
-    const data = new FormData();
-    data.append("file", files[0]);
-    data.append("upload_preset", "gamestationca");
-    const res = await fetch(
-      "https://api.cloudinary.com/v1_1/gamestationca/image/upload",
-      {
-        method: "POST",
-        body: data,
-      }
-    );
-    const file = await res.json();
-    setImage(file.secure_url);
-    let urls = [];
-    urls.push(file.secure_url);
-    setPicture_urls(urls);
-  };
-
   return (
     <div className="sell-container">
       <div className="suf-box-log">
@@ -106,26 +84,10 @@ export default function GameEdit() {
           <div className="input-areas">
             <form>
               <Stack spacing={3} id="sell-stack">
-                <label htmlFor="icon-button-file1" id="image-box-1">
-                  <Input
-                    accept="image/*"
-                    id="icon-button-file1"
-                    type="file"
-                    onChange={uploadImage}
-                  />
-                  <IconButton
-                    color="primary"
-                    aria-label="upload picture"
-                    component="span"
-                    id="icon-button-1"
-                  >
-                    {!image ? (
-                      <PhotoCamera id="image-icon-1" />
-                    ) : (
-                      <img src={image} alt="image" id="image-1" />
-                    )}
-                  </IconButton>
-                </label>
+                <ImagesUpload
+                  picture_urls={picture_urls}
+                  setPicture_urls={setPicture_urls}
+                />
                 <TextField
                   required
                   id="title"

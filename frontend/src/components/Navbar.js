@@ -65,27 +65,30 @@ function Navbar({ avatar, setAvatar }) {
                 </li>
               ) : (
                 <li className="nav-item">
-                  {" "}
                   <LoginButton />
                 </li>
               ))}
             {screenWidth < 960 &&
               (isAuthenticated ? (
                 <>
-                  <Link
-                    to="/profile"
-                    className="nav-links"
-                    onClick={closeMobileMenu}
-                  >
-                    Profile
-                  </Link>
-                  <li
-                    className="nav-links"
-                    onClick={() => {
-                      logout({ returnTo: window.location.origin });
-                    }}
-                  >
-                    Logout
+                  <li className="nav-item">
+                    <Link
+                      to="/profile"
+                      className="nav-links"
+                      onClick={closeMobileMenu}
+                    >
+                      Profile
+                    </Link>
+                  </li>
+                  <li className="nav-item">
+                    <div
+                      className="nav-links"
+                      onClick={() => {
+                        logout({ returnTo: window.location.origin });
+                      }}
+                    >
+                      Logout
+                    </div>
                   </li>
                 </>
               ) : (

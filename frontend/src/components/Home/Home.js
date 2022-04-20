@@ -6,6 +6,7 @@ import {
   faHotjar,
   faPlaystation,
   faXbox,
+  faSpotify
 } from "@fortawesome/free-brands-svg-icons";
 import "./Home.css";
 import { useAuth0 } from "@auth0/auth0-react";
@@ -15,6 +16,7 @@ export default function Home() {
   const [psGames, setPsGames] = useState([]);
   const [xboxGames, setXboxGames] = useState([]);
   const [nsGames, setNsGames] = useState([]);
+  const [histories, setHistories] = useState([]);
 
   const { isAuthenticated, user } = useAuth0();
 
@@ -67,8 +69,43 @@ export default function Home() {
     checkUser();
   }, []);
 
+  useEffect(() => {
+    async function fetchHistories() {
+      if (isAuthenticated) {
+        let currentUserId = user.sub.substring(user.sub.indexOf("|") + 1);
+        if (currentUserId.length > 24) {
+          currentUserId = currentUserId.substring(0, 24);
+        } else {
+          currentUserId = currentUserId.padEnd(24, "0");
+        }
+        const data = await fetch(
+          `http://localhost:3030/history/byuser/${currentUserId}`
+        );
+        const jsonData = await data.json();
+        const posts = jsonData.map((history) => history.post);
+        setHistories(posts);
+      }
+    }
+    fetchHistories();
+  }, []);
+
   return (
     <div className="home-page">
+      {isAuthenticated && (
+        <section>
+          <h2 className="home-title">
+            <FontAwesomeIcon id="spofity-icon" icon={faSpotify} /> You viewed
+          </h2>
+          {histories.length === 0 ? (
+            <>
+              <p>You don't have view history.</p>
+              <br />
+            </>
+          ) : (
+            <GameSection games={histories} />
+          )}
+        </section>
+      )}
       <section>
         <h2 className="home-title">
           <FontAwesomeIcon id="hot-icon" icon={faHotjar} /> Today's Picks

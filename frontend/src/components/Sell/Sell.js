@@ -2,8 +2,6 @@ import React, { useState, useEffect } from "react";
 import "./Sell.css";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useNavigate } from "react-router-dom";
-import { IconButton, Input, Container } from "@mui/material";
-import PhotoCamera from "@mui/icons-material/PhotoCamera";
 import TextField from "@mui/material/TextField";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
@@ -13,14 +11,18 @@ import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 import Autocomplete from "@mui/material/Autocomplete";
 import { cities } from "./Sell.constant";
+import ImagesUpload from "./ImagesUpload";
 
 export default function Sell() {
   const { user, isAuthenticated } = useAuth0();
-  let seller = user.sub.substring(user.sub.indexOf("|") + 1);
-  if (seller.length > 24) {
-    seller = seller.substring(0, 24);
-  } else {
-    seller = seller.padEnd(24, "0");
+  let seller = "";
+  if (isAuthenticated) {
+    seller = user.sub.substring(user.sub.indexOf("|") + 1);
+    if (seller.length > 24) {
+      seller = seller.substring(0, 24);
+    } else {
+      seller = seller.padEnd(24, "0");
+    }
   }
 
   const navigate = useNavigate();
@@ -33,7 +35,6 @@ export default function Sell() {
   const [city, setCity] = useState("");
   const [postal_code, setPostal_code] = useState("");
   const [description, setDescription] = useState("");
-  const [image, setImage] = useState("");
 
   useEffect(() => {
     async function checkUser() {
@@ -93,25 +94,6 @@ export default function Sell() {
     }
   };
 
-  const uploadImage = async (e) => {
-    const files = e.target.files;
-    const data = new FormData();
-    data.append("file", files[0]);
-    data.append("upload_preset", "gamestationca");
-    const res = await fetch(
-      "https://api.cloudinary.com/v1_1/gamestationca/image/upload",
-      {
-        method: "POST",
-        body: data,
-      }
-    );
-    const file = await res.json();
-    setImage(file.secure_url);
-    let urls = [];
-    urls.push(file.secure_url);
-    setPicture_urls(urls);
-  };
-
   return (
     <div className="sell-container">
       <div className="suf-box-log">
@@ -119,26 +101,10 @@ export default function Sell() {
           <div className="input-areas">
             <form>
               <Stack spacing={3} id="sell-stack">
-                <label htmlFor="icon-button-file1" id="image-box-1">
-                  <Input
-                    accept="image/*"
-                    id="icon-button-file1"
-                    type="file"
-                    onChange={uploadImage}
-                  />
-                  <IconButton
-                    color="primary"
-                    aria-label="upload picture"
-                    component="span"
-                    id="icon-button-1"
-                  >
-                    {!image ? (
-                      <PhotoCamera id="image-icon-1" />
-                    ) : (
-                      <img src={image} alt="image" id="image-1" />
-                    )}
-                  </IconButton>
-                </label>
+                <ImagesUpload
+                  picture_urls={picture_urls}
+                  setPicture_urls={setPicture_urls}
+                />
                 <TextField
                   required
                   id="title"

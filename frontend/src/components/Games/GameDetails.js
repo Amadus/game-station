@@ -1,17 +1,19 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
+import Carousel from "react-material-ui-carousel";
 import { Grid, Divider, Avatar, Button, Stack } from "@mui/material";
-import dateFormat from "dateformat";
+import { DateTime } from "luxon";
 import "./GameDetails.css";
 import MapWidget from "../utils/MapWidget";
 import CommentSection from "./CommentSection";
 import { useAuth0 } from "@auth0/auth0-react";
+import PictureItem from "./PictureItem";
 
 export default function GameDetails() {
   const gameId = useParams().gameId;
   const [gameData, setGameData] = useState({});
-  const [gameUrl, setGameUrl] = useState("");
+  const [imageUrls, setImageUrls] = useState([]);
   const [date, setDate] = useState("");
   const [seller, setSeller] = useState({});
 
@@ -32,14 +34,34 @@ export default function GameDetails() {
     getGameData();
   }, []);
 
+  useEffect(() => {
+    async function updateHistory() {
+      if (isAuthenticated) {
+        let currentUserId = user.sub.substring(user.sub.indexOf("|") + 1);
+        if (currentUserId.length > 24) {
+          currentUserId = currentUserId.substring(0, 24);
+        } else {
+          currentUserId = currentUserId.padEnd(24, "0");
+        }
+        const history = {};
+        history.user = currentUserId;
+        history.post = gameId;
+        await fetch("http://localhost:3030/history", {
+          method: "POST",
+          headers: { "Content-type": "application/json" },
+          body: JSON.stringify(history),
+        });
+      }
+    }
+    updateHistory();
+  }, []);
+
   const getGameData = async function () {
     const data = await fetch(`http://localhost:3030/post/${gameId}`);
     const game = await data.json();
     setGameData(game);
-    setGameUrl(game.picture_urls[0]);
-    setDate(
-      dateFormat(new Date(game.post_date), "dddd, mmmm dS, yyyy, h:MM:ss TT")
-    );
+    setImageUrls(game.picture_urls);
+    setDate(DateTime.fromISO(game.post_date).toRelative());
     setSeller(game.seller);
   };
 
@@ -67,19 +89,19 @@ export default function GameDetails() {
 
   return (
     <Grid container className="game-details-page">
-      <Grid item md={9} xs={12} id="picture-section">
-        <div
-          id="picture-area-details"
-          style={{
-            background: `url(${gameUrl}) center center/cover no-repeat`,
-          }}
+      <Grid item md={8} xs={12} id="picture-section">
+        <Carousel
+          indicators={false}
+          autoPlay={false}
+          navButtonsAlwaysVisible={true}
+          cycleNavigation={false}
         >
-          <div className="blur">
-            <img src={gameUrl} alt="game" id="hd-image" />
-          </div>
-        </div>
+          {imageUrls.map((imageUrl, i) => (
+            <PictureItem key={i} imageUrl={imageUrl} gameData={gameData} />
+          ))}
+        </Carousel>
       </Grid>
-      <Grid item md={3} xs={12} id="details-section">
+      <Grid item md={4} xs={12} id="details-section">
         <h2>{gameData.title}</h2>
         <p>C${gameData.price}</p>
         <p>Posted in {gameData.city}</p>
@@ -125,8 +147,14 @@ export default function GameDetails() {
         <br />
         <Divider variant="large" />
         <h3>Seller Information</h3>
-        <Avatar src={seller?.avatar_url} id="seller-avatar" />
-        <p id="seller-name">{seller?.user_name}</p>
+        <Link to={`/sellerprofile/${seller._id}`}>
+          <Avatar
+            src={seller?.avatar_url}
+            alt={seller?.user_name}
+            id="seller-avatar"
+          />
+          <p id="seller-name">{seller?.user_name}</p>
+        </Link>
         <Divider variant="large" />
         <h3>Description</h3>
         {gameData.description ? (
