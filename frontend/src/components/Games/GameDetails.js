@@ -61,7 +61,7 @@ export default function GameDetails() {
     const game = await data.json();
     setGameData(game);
     setImageUrls(game.picture_urls);
-    setDate(DateTime.fromISO(game.post_date).toRelative());
+    setDate(`${DateTime.fromISO(game.post_date).toRelative()}, ${DateTime.fromISO(game.post_date).toFormat('HH:mm')}`);
     setSeller(game.seller);
   };
 
