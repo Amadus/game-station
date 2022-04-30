@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import LogoutButton from "../../Login/LogoutButton"
+import LogoutButton from "../../Login/LogoutButton";
 
 describe("LogoutButton tests", () => {
     test("if LogoutButton works", () => {
