@@ -3,7 +3,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { rest } from "msw";
 import { MemoryRouter } from "react-router-dom";
 import { setupServer } from "msw/node";
-import Profile from "../../Profile/Profile";
+import SellerProfile from "../../Profile/SellerProfile";
 
 const server = setupServer(
     rest.get(
@@ -58,8 +58,8 @@ afterAll(() => server.close());
 
 jest.mock("@auth0/auth0-react");
 
-describe("Profile tests", () => {
-    test("if Profile displays correctly", async () => {
+describe("SellerProfile tests", () => {
+    test("if SellerProfile displays correctly", async () => {
         useAuth0.mockReturnValue({
             user: {
                 sub: "auth0|624bc3ca7536e200694acc49",
@@ -69,15 +69,10 @@ describe("Profile tests", () => {
         });
         render(
             <MemoryRouter>
-                <Profile
-                    avatar={
-                        "https://s.gravatar.com/avatar/9faf89d953190cd36a4a692c5c0c1efc?s=480&r=pg&d=https%3A%2F%2Fcdn.auth0.com%2Favatars%2Fmu.png"
-                    }
-                    setAvatar={jest.fn()}
-                />
+                <SellerProfile />
             </MemoryRouter>
         );
-        expect(screen.getByRole("img").getAttribute("src")).toBe(
+        expect(await screen.findByText("img")).getAttribute("src").toBe(
             "https://s.gravatar.com/avatar/9faf89d953190cd36a4a692c5c0c1efc?s=480&r=pg&d=https%3A%2F%2Fcdn.auth0.com%2Favatars%2Fmu.png"
         );
         expect(screen.getByText(/your items/i)).toBeInTheDocument();
