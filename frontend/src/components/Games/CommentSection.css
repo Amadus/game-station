@@ -4,15 +4,22 @@
 
 .sender-name {
   display: inline-block;
-  line-height: 35px;
-  width: calc(100% - 45px);
+  width: calc(100% - 50px);
   margin: 0 0 0 10px;
+  color: #464646;
+}
+
+.comment-time {
+  display: inline-block;
+  width: calc(100% - 50px);
+  margin: 0 0 0 10px;
+  font-size: 0.85rem;
   color: #464646;
 }
 
 .comment-text {
   display: inline-block;
-  margin: 0 0 0 45px;
+  margin: 5px 0 0 45px;
   overflow-wrap: anywhere;
 }
 
@@ -22,7 +29,7 @@
   padding: 0.1rem 0.4rem;
   margin-left: 5px;
   border-radius: 3px;
-  color:white;
+  color: white;
   font-weight: bold;
 }
 
@@ -32,6 +39,6 @@
   padding: 0.1rem 0.4rem;
   margin-left: 5px;
   border-radius: 3px;
-  color:white;
+  color: white;
   font-weight: bold;
 }
