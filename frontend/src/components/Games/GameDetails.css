@@ -1,4 +1,18 @@
+.picture-item {
+  position: relative;
+  width: 100%;
+  height: calc(100vh - 80px);
+}
+
 #picture-area-details {
+  position: absolute;
+  height: calc(100vh - 80px);
+  width: 100%;
+}
+
+.soldout-details {
+  position: absolute;
+  width: 100%;
   height: calc(100vh - 80px);
 }
 
@@ -56,11 +70,7 @@
 }
 
 @media only screen and (max-width: 900px) {
-  #picture-area-details {
-    height: 40vh;
-  }
-
-  .blur {
+  .picture-item, #picture-area-details, .soldout-details, .blur {
     height: 40vh;
   }
 
