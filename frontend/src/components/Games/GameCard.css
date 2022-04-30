@@ -1,4 +1,5 @@
 #picture-area {
+  position: relative;
   width: 100%;
   height: 200px;
   overflow: hidden;
@@ -10,6 +11,7 @@
 }
 
 #picture-area p {
+  position: absolute;
   width: 100%;
   height: 200px;
   text-align: center;
@@ -23,6 +25,12 @@
 #picture-area p:hover {
   background-color: rgba(0, 0, 0, 0.3);
   transition: all 0.2s ease-out;
+}
+
+.soldout-cover-card {
+  position: absolute;
+  width: 100%;
+  height: 200px;
 }
 
 .game-title {
