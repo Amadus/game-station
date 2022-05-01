@@ -49,7 +49,7 @@ export default function Sell() {
         dbUser._id = currentUserId;
         dbUser.user_name = user.name;
         dbUser.avatar_url = user.picture;
-        await fetch("http://localhost:3030/user", {
+        await fetch(`${process.env.REACT_APP_BACKEND_SERVER_ORIGIN_DEV}/user`, {
           method: "POST",
           headers: { "Content-type": "application/json" },
           body: JSON.stringify(dbUser),
@@ -82,7 +82,7 @@ export default function Sell() {
       post.status = "Selling";
       post.seller = seller;
 
-      fetch("http://localhost:3030/post", {
+      fetch(`${process.env.REACT_APP_BACKEND_SERVER_ORIGIN_DEV}/post`, {
         method: "POST",
         headers: { "Content-type": "application/json" },
         body: JSON.stringify(post),

@@ -23,7 +23,7 @@ export default function Profile({ avatar, setAvatar }) {
       filters.seller = seller;
       data.filters = filters;
 
-      const res = await fetch("http://localhost:3030/post/getpostsbyfilters", {
+      const res = await fetch(`${process.env.REACT_APP_BACKEND_SERVER_ORIGIN_DEV}/post/getpostsbyfilters`, {
         method: "POST",
         headers: { "Content-type": "application/json" },
         body: JSON.stringify(data),
@@ -38,7 +38,7 @@ export default function Profile({ avatar, setAvatar }) {
   const getUserAvatar = async function () {
     const index = user.sub.indexOf("|");
     const userId = user.sub.substring(index + 1).padEnd(24, "0");
-    const userInfo = await fetch(`http://localhost:3030/user/${userId}`);
+    const userInfo = await fetch(`${process.env.REACT_APP_BACKEND_SERVER_ORIGIN_DEV}/user/${userId}`);
     const userData = await userInfo.json();
     const url = await userData.avatar_url;
     setAvatar(url);
@@ -75,7 +75,7 @@ export default function Profile({ avatar, setAvatar }) {
     updateData.user_name = 'knight';
     updateData._id = userId;
 
-    fetch(`http://localhost:3030/user/${userId}`, {
+    fetch(`${process.env.REACT_APP_BACKEND_SERVER_ORIGIN_DEV}/user/${userId}`, {
       method: "PUT",
       headers: { "Content-type": "application/json" },
       body: JSON.stringify(updateData),

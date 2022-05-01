@@ -22,7 +22,7 @@ export default function Home() {
 
   useEffect(() => {
     async function fetchGames() {
-      const data = await fetch("http://localhost:3030/post/all");
+      const data = await fetch(`${process.env.REACT_APP_BACKEND_SERVER_ORIGIN_DEV}/post/all`);
       const jsonData = await data.json();
       const sellingGames = jsonData.filter((game) => game.status === "Selling");
       setPicks(sellingGames.slice(0, 8));
@@ -58,7 +58,7 @@ export default function Home() {
         dbUser._id = currentUserId;
         dbUser.user_name = user.name;
         dbUser.avatar_url = user.picture;
-        await fetch("http://localhost:3030/user", {
+        await fetch(`${process.env.REACT_APP_BACKEND_SERVER_ORIGIN_DEV}/user`, {
           method: "POST",
           headers: { "Content-type": "application/json" },
           body: JSON.stringify(dbUser),
@@ -78,7 +78,7 @@ export default function Home() {
           currentUserId = currentUserId.padEnd(24, "0");
         }
         const data = await fetch(
-          `http://localhost:3030/history/byuser/${currentUserId}`
+          `${process.env.REACT_APP_BACKEND_SERVER_ORIGIN_DEV}/history/byuser/${currentUserId}`
         );
         const jsonData = await data.json();
         const posts = jsonData.map((history) => history.post);

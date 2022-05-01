@@ -6,7 +6,7 @@ import GameDetails from "../../Games/GameDetails"
 
 const server = setupServer(
     rest.post(
-        "http://localhost:3030/history",
+        `${process.env.REACT_APP_BACKEND_SERVER_ORIGIN_DEV}/history`,
         (req, res, ctx) => {
             return res(
                 ctx.json([{
@@ -15,7 +15,7 @@ const server = setupServer(
         }
     ),
     rest.post(
-        "http://localhost:3030/post/626490fdc798409b0860aadf",
+        `${process.env.REACT_APP_BACKEND_SERVER_ORIGIN_DEV}/post/626490fdc798409b0860aadf`,
         (req, res, ctx) => {
             return res(
                 ctx.json([{
@@ -45,7 +45,7 @@ const server = setupServer(
         }
     ),
     rest.post(
-        "http://localhost:3030/post/all",
+        `${process.env.REACT_APP_BACKEND_SERVER_ORIGIN_DEV}/post/all`,
         (req, res, ctx) => {
             return res(
                 ctx.json([{

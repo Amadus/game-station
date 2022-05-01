@@ -28,7 +28,7 @@ export default function Games() {
 
   useEffect(() => {
     async function fetchGames() {
-      const data = await fetch("http://localhost:3030/post/all");
+      const data = await fetch(`${process.env.REACT_APP_BACKEND_SERVER_ORIGIN_DEV}/post/all`);
       const jsonData = await data.json();
       setGames(jsonData.filter((game) => game.status === "Selling"));
     }
@@ -64,7 +64,7 @@ export default function Games() {
 
     const data = {};
     data.filters = filters;
-    const res = await fetch("http://localhost:3030/post/getpostsbyfilters", {
+    const res = await fetch(`${process.env.REACT_APP_BACKEND_SERVER_ORIGIN_DEV}/post/getpostsbyfilters`, {
       method: "POST",
       headers: { "Content-type": "application/json" },
       body: JSON.stringify(data),

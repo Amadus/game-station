@@ -29,7 +29,7 @@ export default function GameEdit() {
   const [gameData, setGameData] = useState({});
 
   const getGameData = async function () {
-    const data = await fetch(`http://localhost:3030/post/${gameId}`);
+    const data = await fetch(`${process.env.REACT_APP_BACKEND_SERVER_ORIGIN_DEV}/post/${gameId}`);
     const game = await data.json();
     setGameData(game);
     setTitle(game.title);
@@ -67,7 +67,7 @@ export default function GameEdit() {
       gameData.description = description;
       gameData.seller = gameData.seller._id;
 
-      await fetch(`http://localhost:3030/post/${gameData._id}`, {
+      await fetch(`${process.env.REACT_APP_BACKEND_SERVER_ORIGIN_DEV}/post/${gameData._id}`, {
         method: "PUT",
         headers: { "Content-type": "application/json" },
         body: JSON.stringify(gameData),

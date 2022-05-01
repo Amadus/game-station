@@ -46,7 +46,7 @@ export default function GameDetails() {
         const history = {};
         history.user = currentUserId;
         history.post = gameId;
-        await fetch("http://localhost:3030/history", {
+        await fetch(`${process.env.REACT_APP_BACKEND_SERVER_ORIGIN_DEV}/history`, {
           method: "POST",
           headers: { "Content-type": "application/json" },
           body: JSON.stringify(history),
@@ -57,7 +57,7 @@ export default function GameDetails() {
   }, []);
 
   const getGameData = async function () {
-    const data = await fetch(`http://localhost:3030/post/${gameId}`);
+    const data = await fetch(`${process.env.REACT_APP_BACKEND_SERVER_ORIGIN_DEV}/post/${gameId}`);
     const game = await data.json();
     setGameData(game);
     setImageUrls(game.picture_urls);
@@ -68,7 +68,7 @@ export default function GameDetails() {
   const markStatus = async function (status) {
     gameData.status = status;
     gameData.seller = gameData.seller._id;
-    await fetch(`http://localhost:3030/post/${gameData._id}`, {
+    await fetch(`${process.env.REACT_APP_BACKEND_SERVER_ORIGIN_DEV}/post/${gameData._id}`, {
       method: "PUT",
       headers: { "Content-type": "application/json" },
       body: JSON.stringify(gameData),
@@ -77,7 +77,7 @@ export default function GameDetails() {
   };
 
   const handleDelete = async function () {
-    await fetch(`http://localhost:3030/post/${gameData._id}`, {
+    await fetch(`${process.env.REACT_APP_BACKEND_SERVER_ORIGIN_DEV}/post/${gameData._id}`, {
       method: "DELETE",
     });
     navigate("/profile");

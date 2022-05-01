@@ -6,7 +6,7 @@ import { rest } from "msw";
 import { setupServer } from "msw/node";
 
 const server = setupServer(
-  rest.get("http://localhost:3030/post/all", (req, res, ctx) => {
+  rest.get(`${process.env.REACT_APP_BACKEND_SERVER_ORIGIN_DEV}/post/all`, (req, res, ctx) => {
     return res(
       ctx.json([
         {

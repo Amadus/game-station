@@ -26,7 +26,7 @@ export default function CommentSection({ gameData, seller }) {
   useEffect(() => {
     async function getCommentsData() {
       const data = await fetch(
-        `http://localhost:3030/comment/bypostid/${gameId}`
+        `${process.env.REACT_APP_BACKEND_SERVER_ORIGIN_DEV}/comment/bypostid/${gameId}`
       );
       const comments = await data.json();
       setCommentsData(comments);
@@ -47,7 +47,7 @@ export default function CommentSection({ gameData, seller }) {
       post.post = gameData._id;
       post.content = commentText;
 
-      const data = await fetch("http://localhost:3030/comment", {
+      const data = await fetch(`${process.env.REACT_APP_BACKEND_SERVER_ORIGIN_DEV}/comment`, {
         method: "POST",
         headers: { "Content-type": "application/json" },
         body: JSON.stringify(post),

@@ -7,7 +7,7 @@ import Profile from "../../Profile/Profile";
 
 const server = setupServer(
     rest.get(
-        "http://localhost:3030/user/624bc3ca7536e200694acc49",
+        `${process.env.REACT_APP_BACKEND_SERVER_ORIGIN_DEV}/user/624bc3ca7536e200694acc49`,
         (req, res, ctx) => {
             return res(
                 ctx.json({
@@ -21,7 +21,7 @@ const server = setupServer(
         }
     ),
     rest.post(
-        "http://localhost:3030/post/getpostsbyfilters",
+        `${process.env.REACT_APP_BACKEND_SERVER_ORIGIN_DEV}/post/getpostsbyfilters`,
         (req, res, ctx) => {
             return res(
                 ctx.json([{

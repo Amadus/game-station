@@ -7,7 +7,7 @@ import SellerProfile from "../../Profile/SellerProfile";
 
 const server = setupServer(
     rest.post(
-        "http://localhost:3030/post/getpostsbyfilters",
+        `${process.env.REACT_APP_BACKEND_SERVER_ORIGIN_DEV}/post/getpostsbyfilters`,
         (req, res, ctx) => {
             return res(
                 ctx.json([{
