@@ -1,30 +1,11 @@
 import React from "react";
 import { useEffect, useState } from "react";
-import { styled } from '@mui/material/styles';
 import { Grid, Divider, Input, IconButton } from "@mui/material";
-
 import Box from '@mui/material/Box';
-import Paper from '@mui/material/Paper';
 import { useAuth0 } from "@auth0/auth0-react";
 import Typography from '@mui/material/Typography';
 import GameSection from '../Games/GameSection';
 import "./Profile.css";
-
-const Item = styled(Paper)(({ theme }) => ({
-  backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-  ...theme.typography.body2,
-  padding: theme.spacing(1),
-  textAlign: 'center',
-  color: theme.palette.text.secondary,
-}));
-
-const Img = styled("img")({
-  margin: "auto",
-  display: "block",
-  maxWidth: "100%",
-  maxHeight: "100%"
-});
-
 
 export default function Profile({ avatar, setAvatar }) {
 
