@@ -24,7 +24,6 @@ export default function Home() {
     async function fetchGames() {
       const data = await fetch("http://localhost:3030/post/all");
       const jsonData = await data.json();
-      console.log(jsonData);
       const sellingGames = jsonData.filter((game) => game.status === "Selling");
       setPicks(sellingGames.slice(0, 8));
       setPsGames(

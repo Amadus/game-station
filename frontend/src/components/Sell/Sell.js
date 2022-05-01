@@ -88,7 +88,6 @@ export default function Sell() {
         body: JSON.stringify(post),
       })
         .then((res) => res.text())
-        .then((text) => console.log(text))
         .then(alert("You have succuessfully submit your request!"))
         .then(navigate("/"));
     }

@@ -47,7 +47,6 @@ export default function Profile() {
         const url = await userData.avatar_url;
         setAvatar(url);
         setUserData(userData);
-        console.log(userData.user_name);
     };
 
     useEffect(() => getUserAvatar(), []);

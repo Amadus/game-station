@@ -57,7 +57,6 @@ export default function GameEdit() {
     ) {
       alert("Please complete the form!");
     } else {
-      console.log(gameData);
       gameData.title = title;
       gameData.price = price;
       gameData.picture_urls = picture_urls;

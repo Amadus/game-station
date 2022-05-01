@@ -40,8 +40,6 @@ export default function Profile({ avatar, setAvatar }) {
     const userId = user.sub.substring(index + 1).padEnd(24, "0");
     const userInfo = await fetch(`http://localhost:3030/user/${userId}`);
     const userData = await userInfo.json();
-    console.log(userInfo);
-    console.log(userData);
     const url = await userData.avatar_url;
     setAvatar(url);
   };
