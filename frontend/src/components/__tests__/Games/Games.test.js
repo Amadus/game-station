@@ -7,7 +7,7 @@ import Games from "../../Games/Games"
 
 const server = setupServer(
     rest.post(
-        "http://localhost:3030/post/getpostsbyfilters",
+        `${process.env.REACT_APP_BACKEND_SERVER_ORIGIN_DEV}/post/getpostsbyfilters`,
         (req, res, ctx) => {
             return res(
                 ctx.json([{
@@ -37,7 +37,7 @@ const server = setupServer(
         }
     ),
     rest.post(
-        "http://localhost:3030/post/all",
+        `${process.env.REACT_APP_BACKEND_SERVER_ORIGIN_DEV}/post/all`,
         (req, res, ctx) => {
             return res(
                 ctx.json([{

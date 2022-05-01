@@ -28,7 +28,7 @@ export default function Profile() {
             filters.seller = sellerId;
             data.filters = filters;
 
-            const res = await fetch("http://localhost:3030/post/getpostsbyfilters", {
+            const res = await fetch(`${process.env.REACT_APP_BACKEND_SERVER_ORIGIN_DEV}/post/getpostsbyfilters`, {
                 method: "POST",
                 headers: { "Content-type": "application/json" },
                 body: JSON.stringify(data),
@@ -42,12 +42,11 @@ export default function Profile() {
 
     const getUserAvatar = async function () {
 
-        const userInfo = await fetch(`http://localhost:3030/user/${sellerId}`);
+        const userInfo = await fetch(`${process.env.REACT_APP_BACKEND_SERVER_ORIGIN_DEV}/user/${sellerId}`);
         const userData = await userInfo.json();
         const url = await userData.avatar_url;
         setAvatar(url);
         setUserData(userData);
-        console.log(userData.user_name);
     };
 
     useEffect(() => getUserAvatar(), []);

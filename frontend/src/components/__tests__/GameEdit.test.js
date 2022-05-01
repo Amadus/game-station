@@ -5,7 +5,7 @@ import { setupServer } from "msw/node";
 import GameEdit from "../Sell/GameEdit";
 
 const server = setupServer(
-  rest.get("http://localhost:3030/post/1", (req, res, ctx) => {
+  rest.get(`${process.env.REACT_APP_BACKEND_SERVER_ORIGIN_DEV}/post/1`, (req, res, ctx) => {
     return res(
       ctx.json({
         _id: "626490fdc798409b0860aadf",

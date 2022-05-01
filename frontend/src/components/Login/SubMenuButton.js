@@ -25,7 +25,7 @@ function SubMenuButton({ avatar, setAvatar }) {
   const getUserAvatar = async function () {
     const index = user.sub.indexOf("|");
     const userId = user.sub.substring(index + 1).padEnd(24, "0");
-    const userInfo = await fetch(`http://localhost:3030/user/${userId}`);
+    const userInfo = await fetch(`${process.env.REACT_APP_BACKEND_SERVER_ORIGIN_DEV}/user/${userId}`);
     const userData = await userInfo.json();
     const url = await userData.avatar_url;
     setAvatar(url);
