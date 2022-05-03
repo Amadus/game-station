@@ -5,6 +5,13 @@ import { Link } from "react-router-dom";
 
 export default function GameCard({ infor }) {
   const [isHover, setIsHover] = useState(false);
+  const [isSold, setIsSold] = useState(false);
+
+  useEffect(() => {
+    if (infor.status === "Sold") {
+      setIsSold(true);
+    }
+  }, [infor]);
 
   return (
     <>
@@ -25,6 +32,14 @@ export default function GameCard({ infor }) {
               onMouseEnter={() => setIsHover(true)}
               onMouseLeave={() => setIsHover(false)}
             >
+              {isSold && (
+                <div
+                  className="soldout-cover-card"
+                  style={{
+                    background: `url(/images/sold-out.png) center center/cover no-repeat`,
+                  }}
+                ></div>
+              )}
               {isHover && <p>DETAILS</p>}
             </div>
           </Link>

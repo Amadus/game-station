@@ -49,8 +49,6 @@ export default function ImagesUpload({ picture_urls, setPicture_urls }) {
     let urls = getUrlsCopy();
     urls[index] = file.secure_url;
     setPicture_urls(urls);
-    console.log("Upload successfully");
-    console.log(urls);
   };
 
   const addAnImage = () => {
@@ -60,7 +58,6 @@ export default function ImagesUpload({ picture_urls, setPicture_urls }) {
   const deleteAnImage = () => {
     if (inputNum === picture_urls.length) {
       picture_urls.pop();
-      console.log(picture_urls);
     }
     setInputNum(inputNum - 1);
   };
