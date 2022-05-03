@@ -1,6 +1,7 @@
 const Post = require("../models/post");
 const User = require("../models/user");
 const Comment = require("../models/comment");
+const History = require("../models/history");
 
 const async = require("async");
 const { validationResult } = require("express-validator");
@@ -92,10 +93,13 @@ exports.post_delete = (req, res, next) => {
     }
     Comment.deleteMany({ post: found_post._id }).exec((err) => {
       if (err) return next(err);
-      Post.findByIdAndRemove(req.params.id, (err) => {
+      History.deleteMany({ post: found_post._id }).exec((err) => {
         if (err) return next(err);
-        res.send("Post deleted!");
-        return;
+        Post.findByIdAndRemove(req.params.id, (err) => {
+          if (err) return next(err);
+          res.send("Post deleted!");
+          return;
+        });
       });
     });
   });
