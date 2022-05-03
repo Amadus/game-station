@@ -81,7 +81,7 @@ export default function Home() {
           `${process.env.REACT_APP_BACKEND_SERVER_ORIGIN_DEV}/history/byuser/${currentUserId}`
         );
         const jsonData = await data.json();
-        const posts = jsonData.map((history) => history.post);
+        const posts = jsonData.map((history) => history.post).filter((post) => post !== null);
         setHistories(posts);
       }
     }
