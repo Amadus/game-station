@@ -6,6 +6,10 @@ for this purpose, but GameStop stores offer relatively lower prices for game own
 sell second-handed games at higher prices so that they can make profits. Our goal is to
 build an end-to-end platform to bring gamers together for sharing their games.
 
+Deployed Website: https://game-station-ca.herokuapp.com/
+
+Demo Video: https://www.youtube.com/watch?v=-G9FwHBBgbg
+
 
 
 ## List of Features
